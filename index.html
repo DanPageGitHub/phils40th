@@ -203,6 +203,7 @@
 
   #sticky-nav-inner{padding-left:40px;padding-right:40px}
   .nav-sep{color:rgba(255,90,0,.3);font-size:10px}
+  .nav-short{display:none}
   .nav-sep-pipe{display:none;color:rgba(255,90,0,.4);font-size:14px}
 
   /* LISTEN LINKS */
@@ -302,10 +303,13 @@
     
   }
 
-  @media(max-width:480px){
+  @media(max-width:660px){
+    .hero__phil-img{right:-15% !important}
     .nav-sep-star{display:none}
     .nav-sep-pipe{display:inline}
     .nav-link{font-size:11px;padding:4px 2px}
+    .nav-long{display:none}
+    .nav-short{display:inline}
   }
 </style>
   <meta name="description" content="Phil's Big Phat 40th — 2nd–4th October 2026. Three Pools Permaculture Farm, Abergavenny. Bands. Void Install Rave. Sauna. Wales. £90 a head.">
@@ -340,9 +344,9 @@
       <span class="nav-sep"><span class="nav-sep-star">★</span><span class="nav-sep-pipe">|</span></span>
       <a href="#food" class="nav-link">Food</a>
       <span class="nav-sep"><span class="nav-sep-star">★</span><span class="nav-sep-pipe">|</span></span>
-      <a href="#location" class="nav-link">Map</a>
+      <a href="#location" class="nav-link"><span class="nav-long">Location</span><span class="nav-short">Map</span></a>
       <span class="nav-sep"><span class="nav-sep-star">★</span><span class="nav-sep-pipe">|</span></span>
-      <a href="#tickets" class="nav-link">Tix</a>
+      <a href="#tickets" class="nav-link">Tickets</a>
     </div>
   </div>
 </nav>
