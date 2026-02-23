@@ -20,7 +20,7 @@
     --col-gap:24px;--page-pad:80px;--content-max:1280px;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;overflow-x:hidden}
   body{background:var(--bg);color:var(--white);font-family:'Barlow',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
   body::before{content:'';position:fixed;inset:0;opacity:.035;pointer-events:none;z-index:1000;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
 
@@ -187,7 +187,27 @@
   .footer-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.06em;color:var(--orange)}
 
   /* MOBILE */
+  
+
+  /* Hide hero bg 40 on mobile */
+  
+
+  /* Extra small phones */
+  @media(max-width:390px){
+    :root{--page-pad:16px}
+    .hero__title{font-size:18vw}
+    .lineup-col__type{font-size:40px}
+  }
+
+  .lineup-bg-img{-webkit-mask-image:linear-gradient(to bottom,black 55%,transparent 95%);mask-image:linear-gradient(to bottom,black 55%,transparent 95%)}
+
+  /* LISTEN LINKS */
+  .listen-link{display:inline-flex;align-items:center;gap:5px;margin-top:var(--s1);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,90,0,.55);text-decoration:none;transition:color .2s}
+  .listen-link:hover{color:var(--orange)}
+  .listen-link svg{flex-shrink:0}
+
   @media(max-width:768px){
+
     /* Spacing */
     :root{--page-pad:20px;--col-gap:16px;--s16:64px;--s12:48px;--s10:40px;--s8:32px;--s6:32px}
 
@@ -259,10 +279,8 @@
 
     /* Travel grid stays 2 col — it's fine */
     .travel-grid{grid-template-columns:1fr 1fr}
-  }
+  
 
-  /* Hide hero bg 40 on mobile */
-  @media(max-width:768px){
     .hero__bg-text{display:none}
     #hero{min-height:unset;padding-top:72px;padding-bottom:calc(var(--s6) + 44px);justify-content:flex-start}
     .hero__phil-img{display:block;height:85%;width:auto;opacity:.13;top:48px;left:calc(100% - 600px)}
@@ -270,21 +288,15 @@
     .hero__cta .btn-primary:hover{background:var(--orange);color:var(--bg)}
     .hero__cta .btn-secondary{display:none}
     .hero__cta{margin-bottom:var(--s5)}
+  
+
+    .nav-link{font-size:12px;padding:4px 8px}
+  
+    #sticky-nav{transform:translateY(0) !important}
+    #sticky-nav-inner{padding-left:12px;padding-right:12px;justify-content:flex-start;}
+    .nav-logo{display:none !important;}
+    
   }
-
-  /* Extra small phones */
-  @media(max-width:390px){
-    :root{--page-pad:16px}
-    .hero__title{font-size:18vw}
-    .lineup-col__type{font-size:40px}
-  }
-
-  .lineup-bg-img{-webkit-mask-image:linear-gradient(to bottom,black 55%,transparent 95%);mask-image:linear-gradient(to bottom,black 55%,transparent 95%)}
-
-  /* LISTEN LINKS */
-  .listen-link{display:inline-flex;align-items:center;gap:5px;margin-top:var(--s1);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,90,0,.55);text-decoration:none;transition:color .2s}
-  .listen-link:hover{color:var(--orange)}
-  .listen-link svg{flex-shrink:0}
 </style>
   <meta name="description" content="Phil's Big Phat 40th — 2nd–4th October 2026. Three Pools Permaculture Farm, Abergavenny. Bands. Void Install Rave. Sauna. Wales. £90 a head.">
 
@@ -328,15 +340,8 @@
   .nav-link{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--white-dim);text-decoration:none;padding:4px 10px;transition:color .15s}
   .nav-link:hover,.nav-link.active{color:var(--orange)}
   #sticky-nav::-webkit-scrollbar{display:none}
-  @media(max-width:768px){
-    #sticky-nav{transform:translateY(0) !important}
-  }
-  @media(max-width:768px){
-    .nav-link{font-size:12px;padding:4px 8px}
   
-    #sticky-nav-inner{padding-left:12px;padding-right:12px;justify-content:flex-start;}
-    .nav-logo{display:none !important;}
-    #nav-links{flex-wrap:nowrap;overflow:visible;}}
+  
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function(){
