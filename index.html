@@ -202,6 +202,8 @@
   .lineup-bg-img{-webkit-mask-image:linear-gradient(to bottom,black 55%,transparent 95%);mask-image:linear-gradient(to bottom,black 55%,transparent 95%)}
 
   #sticky-nav-inner{padding-left:40px;padding-right:40px}
+  .nav-sep{color:rgba(255,90,0,.3);font-size:10px}
+  .nav-sep-pipe{display:none;color:rgba(255,90,0,.4);font-size:14px}
 
   /* LISTEN LINKS */
   .listen-link{display:inline-flex;align-items:center;gap:5px;margin-top:var(--s1);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,90,0,.55);text-decoration:none;transition:color .2s}
@@ -299,6 +301,12 @@
     .nav-logo{display:none !important;}
     
   }
+
+  @media(max-width:480px){
+    .nav-sep-star{display:none}
+    .nav-sep-pipe{display:inline}
+    .nav-link{font-size:11px;padding:4px 2px}
+  }
 </style>
   <meta name="description" content="Phil's Big Phat 40th — 2nd–4th October 2026. Three Pools Permaculture Farm, Abergavenny. Bands. Void Install Rave. Sauna. Wales. £90 a head.">
 
@@ -325,16 +333,16 @@
     <a href="#hero" class="nav-logo" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.08em;color:var(--orange);text-decoration:none;white-space:nowrap;">Phil's 40th</a>
     <div id="nav-links" style="display:flex;align-items:center;gap:4px;white-space:nowrap;">
       <a href="#lineup" class="nav-link">Lineup</a>
-      <span style="color:rgba(255,90,0,.3);font-size:10px">★</span>
+      <span class="nav-sep"><span class="nav-sep-star">★</span><span class="nav-sep-pipe">|</span></span>
       <a href="#plan" class="nav-link">Plan</a>
-      <span style="color:rgba(255,90,0,.3);font-size:10px">★</span>
+      <span class="nav-sep"><span class="nav-sep-star">★</span><span class="nav-sep-pipe">|</span></span>
       <a href="#camping" class="nav-link">Sleep</a>
-      <span style="color:rgba(255,90,0,.3);font-size:10px">★</span>
+      <span class="nav-sep"><span class="nav-sep-star">★</span><span class="nav-sep-pipe">|</span></span>
       <a href="#food" class="nav-link">Food</a>
-      <span style="color:rgba(255,90,0,.3);font-size:10px">★</span>
-      <a href="#location" class="nav-link">Location</a>
-      <span style="color:rgba(255,90,0,.3);font-size:10px">★</span>
-      <a href="#tickets" class="nav-link">Tickets</a>
+      <span class="nav-sep"><span class="nav-sep-star">★</span><span class="nav-sep-pipe">|</span></span>
+      <a href="#location" class="nav-link">Map</a>
+      <span class="nav-sep"><span class="nav-sep-star">★</span><span class="nav-sep-pipe">|</span></span>
+      <a href="#tickets" class="nav-link">Tix</a>
     </div>
   </div>
 </nav>
