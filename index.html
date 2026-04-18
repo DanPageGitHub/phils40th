@@ -114,6 +114,7 @@
   .lineup-intro__title{font-size:clamp(58px,7.2vw,115px)}
   .lineup-date{font-family:'Bebas Neue',sans-serif;font-size:clamp(47px,6.5vw,83px);line-height:.92;letter-spacing:.06em;text-transform:uppercase;color:var(--orange)}
   .lineup-friday{display:flex;flex-direction:column;gap:12px;padding-left:var(--s3);border-left:4px solid rgba(255,90,0,.45)}
+  .lineup-saturday{display:flex;flex-direction:column;gap:var(--s3);padding-left:var(--s3);border-left:4px solid rgba(255,255,255,.45)}
   .lineup-friday__title{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4.2vw,56px);line-height:.95;text-transform:uppercase;color:var(--white)}
   .lineup-friday__copy{max-width:34ch}
   .lineup-col__header{display:flex;flex-direction:column;gap:var(--s1);padding-top:var(--s3);padding-bottom:var(--s4);border-bottom:4px solid}
@@ -179,7 +180,7 @@
 
   /* TICKETS */
   .ticket-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6);margin-top:var(--s3)}
-  .ticket-card{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s5);padding-top:var(--s6);border:2px solid rgba(255,90,0,.3);position:relative;transition:border-color .2s,transform .2s;overflow:visible}
+  .ticket-card{display:flex;flex-direction:column;gap:var(--s4);height:100%;padding:var(--s5);padding-top:var(--s6);border:2px solid rgba(255,90,0,.3);position:relative;transition:border-color .2s,transform .2s;overflow:visible}
   .ticket-card:hover{border-color:var(--orange);transform:translateY(-4px)}
   .ticket-card.featured{border-color:var(--orange);background:rgba(255,90,0,.06)}
   .ticket-card__badge{position:absolute;top:-14px;left:var(--s4);background:var(--orange);color:var(--bg);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px var(--s2);z-index:1}
@@ -189,15 +190,7 @@
   .ticket-includes{display:flex;flex-direction:column;gap:var(--s1)}
   .ticket-includes li{list-style:none;font-size:14px;color:var(--white);padding-left:var(--s3);position:relative;line-height:1.5}
   .ticket-includes li::before{content:'★';position:absolute;left:0;color:var(--orange);font-size:10px;top:2px}
-  .ticket-widget-shell{position:relative;margin-top:var(--s6);padding:var(--s5);border:2px solid rgba(255,90,0,.3);background:linear-gradient(180deg,rgba(255,90,0,.1) 0%,rgba(255,90,0,.04) 100%);overflow:hidden;isolation:isolate}
-  .ticket-widget-shell::before{content:'';position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(180deg,var(--orange) 0%,rgba(255,90,0,.2) 100%)}
-  .ticket-widget-shell::after{content:'';position:absolute;top:-30%;right:-8%;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,0,.16) 0%,rgba(255,90,0,0) 72%);pointer-events:none;z-index:-1}
-  .ticket-widget-shell .tt-widget{max-width:800px;margin-inline:auto}
-  .ticket-widget-shell .tt-widget-fallback{display:flex;justify-content:center}
-  .ticket-widget-shell .tt-widget-fallback p{display:flex;flex-direction:column;align-items:center;gap:var(--s2)}
-  .ticket-widget-shell .tt-widget-fallback small{font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-  .ticket-widget-shell .tt-widget-fallback small a{color:var(--orange)}
-  .ticket-widget-shell iframe{border:0;max-width:100%;background:transparent;min-height:720px}
+  .ticket-card__footer{display:flex;flex-direction:column;gap:var(--s2);margin-top:auto}
 
   /* SUNDAY */
   #sunday{padding-block:var(--s8);display:flex;flex-direction:column;align-items:center;gap:var(--s6)}
@@ -273,9 +266,6 @@
     /* Tickets */
     .ticket-card{padding:var(--s4)}
     .ticket-card__price{font-size:60px}
-    .ticket-widget-shell{padding:var(--s4)}
-    .ticket-widget-shell iframe{min-height:620px}
-
     /* Sound badges — stack */
     .sound-badges{flex-direction:column;gap:var(--s2)}
     .sound-badge{padding:var(--s2) var(--s3)}
@@ -412,46 +402,6 @@
       }, {passive:true});
     }
 
-    var ticketWidgetShell = document.querySelector('.ticket-widget-shell');
-    function syncTicketWidgetHeight(){
-      if(!ticketWidgetShell) return;
-      var iframe = ticketWidgetShell.querySelector('iframe');
-      if(!iframe) return;
-      var baseMinHeight = window.innerWidth <= 768 ? 620 : 720;
-      var widgetHeight = Math.max(
-        parseFloat(iframe.style.height) || 0,
-        parseFloat(iframe.getAttribute('height')) || 0,
-        iframe.getBoundingClientRect().height || 0
-      );
-      var nextHeight = widgetHeight > 0
-        ? Math.max(baseMinHeight, Math.ceil(widgetHeight * 1.3))
-        : baseMinHeight;
-      iframe.style.height = nextHeight + 'px';
-      iframe.style.minHeight = nextHeight + 'px';
-    }
-
-    if(ticketWidgetShell){
-      function attachTicketWidgetObservers(){
-        var iframe = ticketWidgetShell.querySelector('iframe');
-        if(!iframe || iframe.dataset.heightBound === 'true') return;
-        iframe.dataset.heightBound = 'true';
-        iframe.addEventListener('load', syncTicketWidgetHeight);
-        new MutationObserver(syncTicketWidgetHeight).observe(iframe, {
-          attributes:true,
-          attributeFilter:['style','height']
-        });
-        [0, 300, 900, 1800, 3200].forEach(function(delay){
-          window.setTimeout(syncTicketWidgetHeight, delay);
-        });
-      }
-
-      attachTicketWidgetObservers();
-      window.addEventListener('resize', syncTicketWidgetHeight, {passive:true});
-      new MutationObserver(function(){
-        attachTicketWidgetObservers();
-        syncTicketWidgetHeight();
-      }).observe(ticketWidgetShell, {childList:true, subtree:true});
-    }
   });
 </script>
 
@@ -581,9 +531,10 @@
         <div class="lineup-friday__title">Friends &amp; Family DJ Sets</div>
         <p class="t-body lineup-friday__copy">Free for all, rave style. Get the weekend going. Lineup TBC.</p>
       </div>
-      <span class="lineup-date">Saturday 3rd October</span>
     </div>
-    <div class="lineup-grid">
+    <div class="lineup-saturday">
+      <span class="lineup-date">Saturday 3rd October</span>
+      <div class="lineup-grid">
       <!-- BANDS -->
       <div class="lineup-col">
         <div class="lineup-col__header bands">
@@ -645,7 +596,7 @@
         </div>
       </div>
     </div>
-    <div class="sound-badges">
+      <div class="sound-badges">
       <div class="sound-badge">
         <div class="sound-badge__name">d&b Audiotechnik PA</div>
         <div class="sound-badge__sub">Live Band Stage · 12:00–21:30</div>
@@ -950,16 +901,9 @@
           <div class="ticket-card__name">Weekend Ticket</div>
         </div>
         <div class="ticket-card__price"><span>£</span>90</div>
-        <ul class="ticket-includes">
-          <li>Arrive Friday 2nd October</li>
-          <li>Leave Sunday 4th October</li>
-          <li>Camping pitch and facilities</li>
-          <li>Bands Saturday 12:00–21:30</li>
-          <li>Rave barn Saturday 21:30–04:00 (Void)</li>
-          <li>Cold pool and sauna access</li>
-          <li>Bar and food options on site</li>
-        </ul>
-        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center">I'm in</a>
+        <div class="ticket-card__footer">
+          <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center">I'm in</a>
+        </div>
       </div>
       <!-- Campervan -->
       <div class="ticket-card">
@@ -969,14 +913,9 @@
           <div class="ticket-card__name">Campervan / Motorhome</div>
         </div>
         <div class="ticket-card__price"><span>£</span>90</div>
-        <ul class="ticket-includes">
-          <li>Everything in Weekend Ticket</li>
-          <li>Dedicated vehicle area on site</li>
-          <li>Please register your vehicle when booking</li>
-          <li>Limited spaces, first come first served</li>
-        </ul>
-        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">I'm in</a>
-        <p style="font-size:12px;color:var(--white-dim);text-align:center;margin-top:calc(-1 * var(--s2))">Tell us you're bringing a van</p>
+        <div class="ticket-card__footer">
+          <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">I'm in</a>
+        </div>
       </div>
       <!-- Glamping -->
       <div class="ticket-card">
@@ -986,25 +925,9 @@
           <div class="ticket-card__name">Glamping Bell Tent</div>
         </div>
         <div class="ticket-card__price"><span>£</span>90<br><span style="font-size:18px">+ £250 per tent</span></div>
-        <ul class="ticket-includes">
-          <li>Buy your £90 ticket here first</li>
-          <li>10 bell tents, 4-berth, £250 per tent</li>
-          <li>Pre-pitched with beds and bedding</li>
-          <li>Once they're gone they're gone</li>
-          <li>Book direct at Three Pools</li>
-        </ul>
-        <a href="https://www.threepools.co.uk/event-details/phils-40th-accommodation" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">Book a bell tent ↗</a>
-      </div>
-    </div>
-    <div class="ticket-widget-shell">
-      <div class="tt-widget">
-        <div class="tt-widget-fallback">
-          <p>
-            <a href="https://www.tickettailor.com/events/bigphat40th/2112807?ref=website_widget" target="_blank" rel="noopener" class="btn btn-primary">Get your ticket, £90</a>
-            <small><a href="https://www.tickettailor.com" target="_blank" rel="noopener" class="tt-widget-powered">Sell tickets online with Ticket Tailor</a></small>
-          </p>
+        <div class="ticket-card__footer">
+          <a href="https://www.threepools.co.uk/event-details/phils-40th-accommodation" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">Book a bell tent ↗</a>
         </div>
-        <script src="https://cdn.tickettailor.com/js/widgets/min/widget.js" data-url="https://www.tickettailor.com/checkout/view-event/id/7785926/chk/a13b/?modal_widget=true&amp;widget=true&amp;ref=website_widget" data-type="inline" data-inline-minimal="false" data-inline-show-logo="false" data-inline-bg-fill="false" data-inline-inherit-ref-from-url-param="" data-inline-ref="website_widget"></script>
       </div>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:var(--s2);text-align:center">
