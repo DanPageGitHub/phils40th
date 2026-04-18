@@ -182,7 +182,7 @@
   .ticket-card__price span{font-size:36px;color:var(--orange)}
   .ticket-includes{display:flex;flex-direction:column;gap:var(--s1)}
   .ticket-includes li{list-style:none;font-size:14px;color:var(--white);padding-left:var(--s3);position:relative;line-height:1.5}
-  .ticket-includes li::before{content:'→';position:absolute;left:0;color:var(--orange)}
+  .ticket-includes li::before{content:'★';position:absolute;left:0;color:var(--orange);font-size:10px;top:2px}
 
   /* SUNDAY */
   #sunday{padding-block:var(--s8);display:flex;flex-direction:column;align-items:center;gap:var(--s6)}
@@ -516,6 +516,12 @@
 <section id="lineup" style="position:relative;">
   <img src="images/lineup-bg.jpg" aria-hidden="true" class="lineup-bg-img" style="position:absolute;top:0;left:0;width:100%;height:auto;opacity:0.07;filter:grayscale(1) contrast(1.3);pointer-events:none;user-select:none;mix-blend-mode:luminosity;">
   <div class="container">
+    <!-- FRIDAY RAVE -->
+    <div class="info-card" style="margin-bottom:var(--s6)">
+      <span class="t-label">Friday 2nd October · Rave Barn</span>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);line-height:1;text-transform:uppercase;color:var(--orange)">Friends &amp; Family DJ Sets</div>
+      <p class="t-body">Free for all, rave style. Get the weekend going. Lineup TBC.</p>
+    </div>
     <div class="section-header">
       <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.06em;text-transform:uppercase;color:var(--orange)">Saturday 3rd October 2026</span>
       <h2 class="t-section-title">The Lineup</h2>
@@ -592,13 +598,6 @@
           <span class="lineup-item__name">Sophie &amp; Fi</span>
         </div>
       </div>
-    </div>
-
-    <!-- FRIDAY RAVE -->
-    <div class="info-card" style="margin-top:var(--s6)">
-      <span class="t-label">Friday 2nd October · Rave Barn</span>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);line-height:1;text-transform:uppercase;color:var(--orange)">Friends &amp; Family DJ Sets</div>
-      <p class="t-body">Free for all, rave style. Get the weekend going. Lineup TBC.</p>
     </div>
   </div>
 </section>
