@@ -56,7 +56,7 @@
   .btn-secondary:hover{background:var(--orange);color:var(--bg)}
 
   /* HERO */
-  #hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:calc(var(--s10) + 44px);position:relative;overflow:hidden}
+  #hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-top:12px;padding-bottom:calc(var(--s10) + 44px);position:relative;overflow:hidden}
   .hero__bg-text{position:absolute;top:-.05em;left:0;right:0;font-family:'Bebas Neue',sans-serif;font-size:44vw;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,90,0,.07);text-align:center;pointer-events:none;user-select:none}
   .hero__phil-img{position:absolute;right:0;top:0;height:min(100%,80vw);width:auto;opacity:.18;pointer-events:none;user-select:none;filter:grayscale(1) contrast(1.3);mix-blend-mode:luminosity}
   .hero-phil{}
@@ -116,11 +116,11 @@
   .lineup-col__type{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,72px);line-height:.9;text-transform:uppercase}
   .bands-label{color:var(--white)}
   .rave-label{color:var(--orange)}
-  .lineup-item{display:flex;flex-direction:column;gap:3px;padding-block:var(--s3);border-bottom:1px solid rgba(242,242,242,.08);transition:transform .2s}
+  .lineup-item{display:flex;flex-direction:column;gap:3px;padding-block:var(--s2);border-bottom:none;transition:transform .2s}
   .lineup-item:hover{transform:translateX(10px)}
-  .lineup-item__name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(22px,2.5vw,34px);font-weight:900;text-transform:uppercase;letter-spacing:.05em;line-height:1}
+  .lineup-item__name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(29px,3.25vw,44px);font-weight:900;text-transform:uppercase;letter-spacing:.05em;line-height:1}
   .lineup-item__detail{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--white-dim)}
-  .lineup-item.headliner .lineup-item__name{font-size:clamp(32px,4vw,52px);color:var(--orange)}
+  .lineup-item.headliner .lineup-item__name{font-size:clamp(42px,5.2vw,68px);color:var(--orange)}
   .lineup-item.headliner .lineup-item__detail{color:var(--orange-2)}
   .lineup-item.tbc .lineup-item__name{color:rgba(242,242,242,.3)}
   .lineup-item.tbc .lineup-item__detail{color:rgba(242,242,242,.18)}
@@ -183,6 +183,15 @@
   .ticket-includes{display:flex;flex-direction:column;gap:var(--s1)}
   .ticket-includes li{list-style:none;font-size:14px;color:var(--white);padding-left:var(--s3);position:relative;line-height:1.5}
   .ticket-includes li::before{content:'★';position:absolute;left:0;color:var(--orange);font-size:10px;top:2px}
+  .ticket-widget-shell{position:relative;margin-top:var(--s6);padding:var(--s5);border:2px solid rgba(255,90,0,.3);background:linear-gradient(180deg,rgba(255,90,0,.1) 0%,rgba(255,90,0,.04) 100%);overflow:hidden;isolation:isolate}
+  .ticket-widget-shell::before{content:'';position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(180deg,var(--orange) 0%,rgba(255,90,0,.2) 100%)}
+  .ticket-widget-shell::after{content:'';position:absolute;top:-30%;right:-8%;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,0,.16) 0%,rgba(255,90,0,0) 72%);pointer-events:none;z-index:-1}
+  .ticket-widget-shell .tt-widget{max-width:800px;margin-inline:auto}
+  .ticket-widget-shell .tt-widget-fallback{display:flex;justify-content:center}
+  .ticket-widget-shell .tt-widget-fallback p{display:flex;flex-direction:column;align-items:center;gap:var(--s2)}
+  .ticket-widget-shell .tt-widget-fallback small{font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .ticket-widget-shell .tt-widget-fallback small a{color:var(--orange)}
+  .ticket-widget-shell iframe{border:0;max-width:100%;background:transparent}
 
   /* SUNDAY */
   #sunday{padding-block:var(--s8);display:flex;flex-direction:column;align-items:center;gap:var(--s6)}
@@ -257,6 +266,7 @@
     /* Tickets */
     .ticket-card{padding:var(--s4)}
     .ticket-card__price{font-size:60px}
+    .ticket-widget-shell{padding:var(--s4)}
 
     /* Sound badges — stack */
     .sound-badges{flex-direction:column;gap:var(--s2)}
@@ -402,9 +412,6 @@
   <img src="images/hero-phil.jpg" alt="" class="hero__phil-img hero-phil" aria-hidden="true">
   <div class="container">
     <div class="hero__content">
-      <div class="hero__announcement">
-        <span class="t-label">★ Private event, invite only ★ Strictly limited spaces ★ RSVP required</span>
-      </div>
       <div class="hero__title">
         <span class="l1">Phil &</span>
         <span class="l1">Sophie's</span>
@@ -433,7 +440,7 @@
         </div>
       </div>
       <div class="hero__cta">
-        <a href="#tickets" class="btn btn-primary">Get your ticket, £90</a>
+        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary">Get your ticket, £90</a>
         <a href="#lineup" class="btn btn-secondary">See the Lineup</a>
       </div>
       <div class="hero__scroll">
@@ -445,7 +452,7 @@
   <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;">
     <div class="marquee-wrap" aria-hidden="true" style="margin:0">
       <div class="marquee-track">
-        <span>★ BANDS</span><span>★ RAVE</span><span>★ 2nd OCT 2026</span><span>★ THREE POOLS</span><span>★ ABERGAVENNY</span><span>★ PHIL'S 40TH</span><span>★ VOID SOUNDSYSTEM</span><span>★ SAUNA</span><span>★ £90 COVERS COSTS</span><span>★ BANDS</span><span>★ RAVE</span><span>★ 2nd OCT 2026</span><span>★ THREE POOLS</span><span>★ ABERGAVENNY</span><span>★ PHIL'S 40TH</span><span>★ VOID SOUNDSYSTEM</span><span>★ SAUNA</span><span>★ £90 COVERS COSTS</span>
+        <span>★ BANDS</span><span>★ RAVE</span><span>★ 2nd OCT 2026</span><span>★ THREE POOLS</span><span>★ ABERGAVENNY</span><span>★ PHIL &amp; SOPHIE'S BIRTHDAY</span><span>★ VOID SOUNDSYSTEM</span><span>★ SAUNA</span><span>★ £90 COVERS COSTS</span><span>★ BANDS</span><span>★ RAVE</span><span>★ 2nd OCT 2026</span><span>★ THREE POOLS</span><span>★ ABERGAVENNY</span><span>★ PHIL &amp; SOPHIE'S BIRTHDAY</span><span>★ VOID SOUNDSYSTEM</span><span>★ SAUNA</span><span>★ £90 COVERS COSTS</span>
       </div>
     </div>
   </div>
@@ -469,7 +476,7 @@
           "We want bands,<br>we want a rave,<br>we want everyone we love<br>in one <span>filthy field</span><br>in Wales."
         </div>
         <p class="t-body" style="max-width:520px">So that's what we're doing. Three days at Three Pools, a permaculture farm in the foothills of the Black Mountains. Bands from midday Saturday, rave in the barn 9:30pm til 4am. Sauna. Cold pool. Farm food. Proper bar. £90 a head covers the costs. No profit. Just Phil and Sophie's birthday.</p>
-        <a href="#tickets" class="btn btn-primary" style="align-self:flex-start">I'm in, get a ticket</a>
+        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary" style="align-self:flex-start">I'm in, get a ticket</a>
       </div>
     </div>
   </div>
@@ -516,32 +523,21 @@
 <section id="lineup" style="position:relative;">
   <img src="images/lineup-bg.jpg" aria-hidden="true" class="lineup-bg-img" style="position:absolute;top:0;left:0;width:100%;height:auto;opacity:0.07;filter:grayscale(1) contrast(1.3);pointer-events:none;user-select:none;mix-blend-mode:luminosity;">
   <div class="container">
-    <!-- FRIDAY RAVE -->
-    <div class="info-card" style="margin-bottom:var(--s6)">
-      <span class="t-label">Friday 2nd October · Rave Barn</span>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);line-height:1;text-transform:uppercase;color:var(--orange)">Friends &amp; Family DJ Sets</div>
-      <p class="t-body">Free for all, rave style. Get the weekend going. Lineup TBC.</p>
-    </div>
     <div class="section-header">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.06em;text-transform:uppercase;color:var(--orange)">Saturday 3rd October 2026</span>
       <h2 class="t-section-title">The Lineup</h2>
-      <p class="t-body" style="max-width:580px">Bands on stage from midday til 9:30pm. Then the rave barn opens, Void soundsystem, on til 4am. Two worlds. Equal fire.</p>
-    </div>
-    <div class="sound-badges">
-      <div class="sound-badge">
-        <div class="sound-badge__name">d&b Audiotechnik PA</div>
-        <div class="sound-badge__sub">Live Band Stage · 12:00–21:30</div>
+      <!-- FRIDAY RAVE -->
+      <div style="display:flex;flex-direction:column;gap:var(--s2);margin-top:var(--s2);margin-bottom:var(--s2)">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(47px,6.5vw,83px);letter-spacing:.06em;text-transform:uppercase;color:var(--orange)">Friday 2nd October</span>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);line-height:1;text-transform:uppercase;color:var(--white)">Friends &amp; Family DJ Sets</div>
+        <p class="t-body">Free for all, rave style. Get the weekend going. Lineup TBC.</p>
       </div>
-      <div class="sound-badge">
-        <div class="sound-badge__name">Void Acoustics Install</div>
-        <div class="sound-badge__sub">Rave Barn · 21:30–04:00</div>
-      </div>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(47px,6.5vw,83px);letter-spacing:.06em;text-transform:uppercase;color:var(--orange)">Saturday 3rd October</span>
     </div>
     <div class="lineup-grid">
       <!-- BANDS -->
       <div class="lineup-col">
         <div class="lineup-col__header bands">
-          <span class="t-label">Saturday 12:00–21:30 · d&b PA Stage</span>
+          <span class="t-label">Saturday 12:00–21:30 · The Dutchie</span>
           <div class="lineup-col__type bands-label">Live Bands</div>
         </div>
         <div class="lineup-item headliner">
@@ -597,6 +593,16 @@
         <div class="lineup-item">
           <span class="lineup-item__name">Sophie &amp; Fi</span>
         </div>
+      </div>
+    </div>
+    <div class="sound-badges">
+      <div class="sound-badge">
+        <div class="sound-badge__name">d&b Audiotechnik PA</div>
+        <div class="sound-badge__sub">Live Band Stage · 12:00–21:30</div>
+      </div>
+      <div class="sound-badge">
+        <div class="sound-badge__name">Void Acoustics Install</div>
+        <div class="sound-badge__sub">Rave Barn · 21:30–04:00</div>
       </div>
     </div>
   </div>
@@ -903,7 +909,7 @@
           <li>Cold pool and sauna access</li>
           <li>Bar and food options on site</li>
         </ul>
-        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center">I'm in, £90</a>
+        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center">I'm in, £90</a>
       </div>
       <!-- Campervan -->
       <div class="ticket-card">
@@ -919,7 +925,7 @@
           <li>Please register your vehicle when booking</li>
           <li>Limited spaces, first come first served</li>
         </ul>
-        <a href="#" class="btn btn-secondary" style="width:100%;justify-content:center">I'm in, £90</a>
+        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">I'm in, £90</a>
         <p style="font-size:12px;color:var(--white-dim);text-align:center;margin-top:calc(-1 * var(--s2))">Tell us you're bringing a van</p>
       </div>
       <!-- Glamping -->
@@ -938,6 +944,17 @@
           <li>Book direct at Three Pools</li>
         </ul>
         <a href="https://www.threepools.co.uk/event-details/phils-40th-accommodation" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">Book a bell tent ↗</a>
+      </div>
+    </div>
+    <div class="ticket-widget-shell">
+      <div class="tt-widget">
+        <div class="tt-widget-fallback">
+          <p>
+            <a href="https://www.tickettailor.com/events/bigphat40th/2112807?ref=website_widget" target="_blank" rel="noopener" class="btn btn-primary">Get your ticket, £90</a>
+            <small><a href="https://www.tickettailor.com" target="_blank" rel="noopener" class="tt-widget-powered">Sell tickets online with Ticket Tailor</a></small>
+          </p>
+        </div>
+        <script src="https://cdn.tickettailor.com/js/widgets/min/widget.js" data-url="https://www.tickettailor.com/checkout/view-event/id/7785926/chk/a13b/?modal_widget=true&amp;widget=true&amp;ref=website_widget" data-type="inline" data-inline-minimal="false" data-inline-show-logo="false" data-inline-bg-fill="false" data-inline-inherit-ref-from-url-param="" data-inline-ref="website_widget"></script>
       </div>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:var(--s2);text-align:center">
@@ -1012,7 +1029,7 @@
           </div>
         </div>
       </div>
-      <a href="#tickets" class="btn btn-primary" style="margin-top:var(--s4)">Don't miss it, get your ticket</a>
+      <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:var(--s4)">Don't miss it, get your ticket</a>
     </div>
   </div>
 </section>
