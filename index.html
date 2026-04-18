@@ -110,6 +110,12 @@
   .lineup-grid{display:grid;grid-template-columns:1fr 4px 1fr;margin-top:var(--s2)}
   .lineup-divider-vert{background:var(--orange);margin-inline:var(--s6)}
   .lineup-col{display:flex;flex-direction:column}
+  .lineup-intro{display:flex;flex-direction:column;gap:var(--s3);max-width:760px}
+  .lineup-intro__title{font-size:clamp(58px,7.2vw,115px)}
+  .lineup-date{font-family:'Bebas Neue',sans-serif;font-size:clamp(47px,6.5vw,83px);line-height:.92;letter-spacing:.06em;text-transform:uppercase;color:var(--orange)}
+  .lineup-friday{display:flex;flex-direction:column;gap:12px;padding-left:var(--s3);border-left:4px solid rgba(255,90,0,.45)}
+  .lineup-friday__title{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4.2vw,56px);line-height:.95;text-transform:uppercase;color:var(--white)}
+  .lineup-friday__copy{max-width:34ch}
   .lineup-col__header{display:flex;flex-direction:column;gap:var(--s1);padding-top:var(--s3);padding-bottom:var(--s4);border-bottom:4px solid}
   .lineup-col__header.bands{border-color:var(--white)}
   .lineup-col__header.rave{border-color:var(--orange)}
@@ -191,7 +197,7 @@
   .ticket-widget-shell .tt-widget-fallback p{display:flex;flex-direction:column;align-items:center;gap:var(--s2)}
   .ticket-widget-shell .tt-widget-fallback small{font-size:11px;letter-spacing:.1em;text-transform:uppercase}
   .ticket-widget-shell .tt-widget-fallback small a{color:var(--orange)}
-  .ticket-widget-shell iframe{border:0;max-width:100%;background:transparent}
+  .ticket-widget-shell iframe{border:0;max-width:100%;background:transparent;min-height:720px}
 
   /* SUNDAY */
   #sunday{padding-block:var(--s8);display:flex;flex-direction:column;align-items:center;gap:var(--s6)}
@@ -240,6 +246,7 @@
     .lineup-divider-vert{width:100%;height:4px;margin-inline:0;margin-block:var(--s5)}
     .lineup-col__type{font-size:48px}
     #lineup{gap:var(--s6)}
+    .lineup-friday{gap:10px;padding-left:var(--s2)}
 
     /* Hero */
     .hero__title{font-size:clamp(72px,20vw,120px)}
@@ -267,6 +274,7 @@
     .ticket-card{padding:var(--s4)}
     .ticket-card__price{font-size:60px}
     .ticket-widget-shell{padding:var(--s4)}
+    .ticket-widget-shell iframe{min-height:620px}
 
     /* Sound badges — stack */
     .sound-badges{flex-direction:column;gap:var(--s2)}
@@ -378,30 +386,72 @@
   document.addEventListener('DOMContentLoaded', function(){
     var nav = document.getElementById('sticky-nav');
     var hero = document.getElementById('hero');
-    if(!nav || !hero) return;
-    var links = document.querySelectorAll('.nav-link');
-    var sections = ['lineup','plan','camping','food','location','tickets'];
+    if(nav && hero){
+      var links = document.querySelectorAll('.nav-link');
+      var sections = ['lineup','plan','camping','food','location','tickets'];
 
-    window.addEventListener('scroll', function(){
-      var heroBottom = hero.getBoundingClientRect().bottom;
-      if(heroBottom < 0){
-        nav.style.transform = 'translateY(0)';
-      } else {
-        nav.style.transform = 'translateY(-100%)';
+      window.addEventListener('scroll', function(){
+        var heroBottom = hero.getBoundingClientRect().bottom;
+        if(heroBottom < 0){
+          nav.style.transform = 'translateY(0)';
+        } else {
+          nav.style.transform = 'translateY(-100%)';
+        }
+
+        // Active state
+        var scrollY = window.scrollY + 80;
+        var current = '';
+        sections.forEach(function(id){
+          var el = document.getElementById(id);
+          if(el && el.offsetTop <= scrollY) current = id;
+        });
+        links.forEach(function(link){
+          var href = link.getAttribute('href').replace('#','');
+          link.classList.toggle('active', href === current);
+        });
+      }, {passive:true});
+    }
+
+    var ticketWidgetShell = document.querySelector('.ticket-widget-shell');
+    function syncTicketWidgetHeight(){
+      if(!ticketWidgetShell) return;
+      var iframe = ticketWidgetShell.querySelector('iframe');
+      if(!iframe) return;
+      var baseMinHeight = window.innerWidth <= 768 ? 620 : 720;
+      var widgetHeight = Math.max(
+        parseFloat(iframe.style.height) || 0,
+        parseFloat(iframe.getAttribute('height')) || 0,
+        iframe.getBoundingClientRect().height || 0
+      );
+      var nextHeight = widgetHeight > 0
+        ? Math.max(baseMinHeight, Math.ceil(widgetHeight * 1.3))
+        : baseMinHeight;
+      iframe.style.height = nextHeight + 'px';
+      iframe.style.minHeight = nextHeight + 'px';
+    }
+
+    if(ticketWidgetShell){
+      function attachTicketWidgetObservers(){
+        var iframe = ticketWidgetShell.querySelector('iframe');
+        if(!iframe || iframe.dataset.heightBound === 'true') return;
+        iframe.dataset.heightBound = 'true';
+        iframe.addEventListener('load', syncTicketWidgetHeight);
+        new MutationObserver(syncTicketWidgetHeight).observe(iframe, {
+          attributes:true,
+          attributeFilter:['style','height']
+        });
+        [0, 300, 900, 1800, 3200].forEach(function(delay){
+          window.setTimeout(syncTicketWidgetHeight, delay);
+        });
       }
 
-      // Active state
-      var scrollY = window.scrollY + 80;
-      var current = '';
-      sections.forEach(function(id){
-        var el = document.getElementById(id);
-        if(el && el.offsetTop <= scrollY) current = id;
-      });
-      links.forEach(function(link){
-        var href = link.getAttribute('href').replace('#','');
-        link.classList.toggle('active', href === current);
-      });
-    }, {passive:true});
+      attachTicketWidgetObservers();
+      window.addEventListener('resize', syncTicketWidgetHeight, {passive:true});
+      new MutationObserver(function(){
+        attachTicketWidgetObservers();
+        syncTicketWidgetHeight();
+      }).observe(ticketWidgetShell, {childList:true, subtree:true});
+    }
   });
 </script>
 
@@ -523,15 +573,15 @@
 <section id="lineup" style="position:relative;">
   <img src="images/lineup-bg.jpg" aria-hidden="true" class="lineup-bg-img" style="position:absolute;top:0;left:0;width:100%;height:auto;opacity:0.07;filter:grayscale(1) contrast(1.3);pointer-events:none;user-select:none;mix-blend-mode:luminosity;">
   <div class="container">
-    <div class="section-header">
-      <h2 class="t-section-title">The Lineup</h2>
+    <div class="section-header lineup-intro">
+      <h2 class="t-section-title lineup-intro__title">The Lineup</h2>
       <!-- FRIDAY RAVE -->
-      <div style="display:flex;flex-direction:column;gap:var(--s2);margin-top:var(--s2);margin-bottom:var(--s2)">
-        <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(47px,6.5vw,83px);letter-spacing:.06em;text-transform:uppercase;color:var(--orange)">Friday 2nd October</span>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);line-height:1;text-transform:uppercase;color:var(--white)">Friends &amp; Family DJ Sets</div>
-        <p class="t-body">Free for all, rave style. Get the weekend going. Lineup TBC.</p>
+      <div class="lineup-friday">
+        <span class="lineup-date">Friday 2nd October</span>
+        <div class="lineup-friday__title">Friends &amp; Family DJ Sets</div>
+        <p class="t-body lineup-friday__copy">Free for all, rave style. Get the weekend going. Lineup TBC.</p>
       </div>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(47px,6.5vw,83px);letter-spacing:.06em;text-transform:uppercase;color:var(--orange)">Saturday 3rd October</span>
+      <span class="lineup-date">Saturday 3rd October</span>
     </div>
     <div class="lineup-grid">
       <!-- BANDS -->
@@ -909,7 +959,7 @@
           <li>Cold pool and sauna access</li>
           <li>Bar and food options on site</li>
         </ul>
-        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center">I'm in, £90</a>
+        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center">I'm in</a>
       </div>
       <!-- Campervan -->
       <div class="ticket-card">
@@ -925,7 +975,7 @@
           <li>Please register your vehicle when booking</li>
           <li>Limited spaces, first come first served</li>
         </ul>
-        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">I'm in, £90</a>
+        <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">I'm in</a>
         <p style="font-size:12px;color:var(--white-dim);text-align:center;margin-top:calc(-1 * var(--s2))">Tell us you're bringing a van</p>
       </div>
       <!-- Glamping -->
@@ -1003,7 +1053,6 @@
   <div class="container" style="align-items:center">
     <div class="sunday-big" aria-hidden="true">SUNDAY</div>
     <div class="sunday-content">
-      <span class="t-label" style="text-align:center">★ 4th October 2026</span>
       <h2 class="t-section-title" style="text-align:center">The Comedown</h2>
       <p class="t-body" style="text-align:center">Sunday is sacred. No rush, no agenda. Coffee, warm food, stories from the barn. Then home safely. That's the only rule.</p>
       <div style="display:flex;flex-direction:column;gap:var(--s3);width:100%">
@@ -1036,7 +1085,7 @@
 
 <div class="marquee-wrap dark" aria-hidden="true">
   <div class="marquee-track" style="animation-direction:reverse;animation-duration:28s">
-    <span>★ PHIL TURNS 40</span><span>★ 2–4 OCT 2026</span><span>★ THREE POOLS</span><span>★ BANDS + RAVE</span><span>★ VOID SOUNDSYSTEM</span><span>★ ABERGAVENNY</span><span>★ £90 COVERS COSTS</span><span>★ SAUNA</span><span>★ PENGSHUI</span><span>★ BIG HEAD MODE</span><span>★ THE HUMAN BOOFTAPEDE</span><span>★ PHIL TURNS 40</span><span>★ 2–4 OCT 2026</span><span>★ THREE POOLS</span><span>★ BANDS + RAVE</span><span>★ VOID SOUNDSYSTEM</span><span>★ ABERGAVENNY</span><span>★ £90 COVERS COSTS</span><span>★ SAUNA</span><span>★ PENGSHUI</span><span>★ BIG HEAD MODE</span><span>★ THE HUMAN BOOFTAPEDE</span>
+    <span>★ PHIL AND SOPH TURN 40</span><span>★ 2–4 OCT 2026</span><span>★ THREE POOLS</span><span>★ BANDS + RAVE</span><span>★ VOID SOUNDSYSTEM</span><span>★ ABERGAVENNY</span><span>★ £90 COVERS COSTS</span><span>★ SAUNA</span><span>★ PENGSHUI</span><span>★ BIG HEAD MODE</span><span>★ THE HUMAN BOOFTAPEDE</span><span>★ PHIL AND SOPH TURN 40</span><span>★ 2–4 OCT 2026</span><span>★ THREE POOLS</span><span>★ BANDS + RAVE</span><span>★ VOID SOUNDSYSTEM</span><span>★ ABERGAVENNY</span><span>★ £90 COVERS COSTS</span><span>★ SAUNA</span><span>★ PENGSHUI</span><span>★ BIG HEAD MODE</span><span>★ THE HUMAN BOOFTAPEDE</span>
   </div>
 </div>
 <div class="divider"></div>
