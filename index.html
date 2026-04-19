@@ -280,7 +280,8 @@
     .sunday-content{margin-top:calc(-1 * var(--s8));padding-inline:0}
 
     /* Info cards in a row → column */
-    .info-card[style*="flex-direction:row"]{flex-direction:column!important;gap:var(--s2)}
+    .info-card[style*="flex-direction:row"]{flex-direction:column!important;gap:var(--s2);align-items:flex-start}
+    .info-card[style*="flex-direction:row"] > div:first-child{min-width:auto!important;text-align:left}
 
     /* Location map */
     .location-map{aspect-ratio:3/2}
