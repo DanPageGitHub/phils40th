@@ -232,9 +232,6 @@
   .birthday-name.glitching,#birthday-crew-title.glitching{
     animation:nameGlitch .4s steps(3) forwards!important;
   }
-  #birthday-crew-title.glitching{
-    animation-duration:1.2s!important;
-  }
   .birthday-dot{
     animation:dotPulse 2.4s ease-in-out infinite;
     opacity:.2;
@@ -499,17 +496,18 @@
     var bdWrap = document.getElementById('birthday-names-wrap');
     var bdTitle = document.getElementById('birthday-crew-title');
 
-    function fizzleTitle(){
-      if(!bdTitle) return;
+    function fizzleTitle(remaining){
+      if(!bdTitle || remaining <= 0) return;
       bdTitle.classList.add('glitching');
       bdTitle.addEventListener('animationend', function onTitleFizzle(){
         bdTitle.classList.remove('glitching');
         bdTitle.removeEventListener('animationend', onTitleFizzle);
+        if(remaining > 1) setTimeout(function(){ fizzleTitle(remaining - 1); }, 80);
       });
     }
 
     function startSequence(){
-      fizzleTitle();
+      fizzleTitle(3);
       setTimeout(function(){
         var shuffled = bdNames.slice().sort(function(){ return Math.random() - 0.5; });
         fizzleWave(shuffled, 0);
