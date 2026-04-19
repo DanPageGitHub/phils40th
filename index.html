@@ -438,6 +438,18 @@
       var links = document.querySelectorAll('.nav-link');
       var sections = ['lineup','plan','camping','food','location','tickets'];
 
+      // Scroll to section without changing URL hash
+      links.forEach(function(link){
+        link.addEventListener('click', function(e){
+          var href = link.getAttribute('href');
+          if(href && href.charAt(0) === '#'){
+            e.preventDefault();
+            var target = document.getElementById(href.slice(1));
+            if(target) target.scrollIntoView({behavior:'smooth'});
+          }
+        });
+      });
+
       window.addEventListener('scroll', function(){
         var heroBottom = hero.getBoundingClientRect().bottom;
         if(heroBottom < 0){
@@ -461,6 +473,63 @@
     }
 
 
+
+    // Birthday Crew — pixellated fireworks
+    function launchFireworks(){
+      var canvas = document.getElementById('bd-fireworks');
+      if(!canvas) return;
+      var section = canvas.parentElement;
+      canvas.width = section.offsetWidth;
+      canvas.height = section.offsetHeight;
+      var ctx = canvas.getContext('2d');
+      var colors = ['#FF5A00','#FF7A1A','#FF5A00','#F2F2F2','#FFFFFF','#FF5A00'];
+      var particles = [];
+
+      function spawnBurst(x, y, count){
+        for(var i = 0; i < count; i++){
+          var angle = Math.random() * Math.PI * 2;
+          var speed = Math.random() * 5 + 1.5;
+          particles.push({
+            x:x, y:y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - Math.random() * 2,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            life: 1,
+            decay: Math.random() * 0.018 + 0.012,
+            size: Math.floor(Math.random() * 3) + 2
+          });
+        }
+      }
+
+      // 5 bursts scattered across the section, staggered
+      var burstPositions = [0.2,0.4,0.6,0.8,0.5];
+      burstPositions.forEach(function(xFrac, i){
+        setTimeout(function(){
+          var x = canvas.width * xFrac;
+          var y = canvas.height * (0.25 + Math.random() * 0.5);
+          spawnBurst(x, y, 35);
+        }, i * 160);
+      });
+
+      function animate(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles = particles.filter(function(p){ return p.life > 0; });
+        particles.forEach(function(p){
+          ctx.globalAlpha = Math.max(0, p.life);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.09;
+          p.vx *= 0.98;
+          p.life -= p.decay;
+        });
+        ctx.globalAlpha = 1;
+        if(particles.length > 0) requestAnimationFrame(animate);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      animate();
+    }
 
     // Birthday Crew — wait for all names to reveal, then fizzle as a wave
     var waveComplete = false;
@@ -492,7 +561,10 @@
         el.removeEventListener('animationend', onFizzle);
         lockAndWireHover(el);
         fizzleDoneCount++;
-        if(fizzleDoneCount === bdNames.length) waveComplete = true;
+        if(fizzleDoneCount === bdNames.length){
+          waveComplete = true;
+          launchFireworks();
+        }
       });
       // Trigger next name after this one starts (overlapping wave)
       setTimeout(function(){ fizzleWave(names, index + 1); }, 130);
@@ -1116,7 +1188,8 @@
 <div class="divider"></div>
 
 <!-- ══ HONOURABLE MENTIONS ══ -->
-<section class="sec tight" style="text-align:center">
+<section class="sec tight" style="text-align:center;position:relative;overflow:hidden">
+<canvas id="bd-fireworks" style="position:absolute;inset:0;pointer-events:none;z-index:10"></canvas>
   <div class="container" style="align-items:center;gap:var(--s5)">
     <div class="section-header" style="align-items:center">
       <h2 id="birthday-crew-title" class="t-section-title" style="font-size:clamp(64px,10vw,140px)">Birthday Crew</h2>
