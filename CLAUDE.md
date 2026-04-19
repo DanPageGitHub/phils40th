@@ -20,9 +20,11 @@ Live URL: https://phils40th.co.uk
 
 ## File structure
 
-The entire site is a single file: `index.html`
+The site is `index.html` plus an `images/` folder of JPEG files.
 
-Everything lives inside it — all CSS, JS, and images as base64-encoded JPEGs. There are no external asset files, no subdirectories, and no separate stylesheets.
+All CSS and JS live inside `index.html`. Images are external files in `images/` referenced via relative paths.
+
+There is also a `.gitignore/` directory in the project root — this is intentionally kept local (not a git ignore file) and is excluded from the repo via `.git/info/exclude`. Do not delete it.
 
 ---
 
@@ -30,7 +32,7 @@ Everything lives inside it — all CSS, JS, and images as base64-encoded JPEGs. 
 
 - Pure HTML/CSS/JS, no frameworks
 - Google Fonts (Bebas Neue, Barlow, Barlow Condensed) loaded via CDN — the only external dependency
-- All images embedded as base64 JPEGs directly in the HTML
+- Images are JPEG files in `images/`, referenced with relative paths (no leading slash)
 
 ---
 

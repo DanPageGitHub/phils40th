@@ -92,7 +92,8 @@
 
   /* PHIL SECTION */
   .phil-block{display:grid;grid-template-columns:auto 1fr;gap:var(--s8);align-items:center}
-  .phil-photo{width:280px;height:360px;object-fit:cover;object-position:center 30%;border:4px solid var(--orange);flex-shrink:0}
+  .phil-photos{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);width:300px;flex-shrink:0}
+  .phil-square-img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top;border:4px solid var(--orange)}
   .phil-quote{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.5vw,50px);line-height:1.05;letter-spacing:.02em}
   .phil-quote span{color:var(--orange)}
 
@@ -180,7 +181,7 @@
   .travel-item__value{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 
   /* TICKETS */
-  .ticket-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6);margin-top:var(--s3)}
+  .ticket-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s6);margin-top:var(--s3)}
   .ticket-card{display:flex;flex-direction:column;gap:var(--s4);height:100%;padding:var(--s5);padding-top:var(--s6);border:2px solid rgba(255,90,0,.3);position:relative;transition:border-color .2s,transform .2s;overflow:visible}
   .ticket-card:hover{border-color:var(--orange);transform:translateY(-4px)}
   .ticket-card.featured{border-color:var(--orange);background:rgba(255,90,0,.06)}
@@ -254,7 +255,7 @@
 
     /* Phil block */
     .phil-block{grid-template-columns:1fr;gap:var(--s4)}
-    .phil-photo{width:100%;height:240px;object-position:center 20%}
+    .phil-photos{width:100%}
     .phil-quote{font-size:clamp(26px,7vw,40px)}
 
     /* Venue photos */
@@ -470,9 +471,12 @@
 <section class="sec tight" id="about">
   <div class="container">
     <div class="phil-block">
-      <img src="images/phil-photo.jpg" alt="Phil — the birthday boy" class="phil-photo">
+      <div class="phil-photos">
+        <img src="images/PhilSquare.jpg" alt="Phil" class="phil-square-img" loading="lazy" decoding="async">
+        <img src="images/SophSquare.jpg" alt="Sophie" class="phil-square-img" loading="lazy" decoding="async">
+      </div>
       <div style="display:flex;flex-direction:column;gap:var(--s4)">
-        <span class="t-label">The Duo. The Myth. The 40-Year-Olds.</span>
+        <span class="t-label">Legends turning 40 in style!</span>
         <div class="phil-quote">
           "We want bands,<br>we want a rave,<br>we want everyone we love<br>in one <span>filthy field</span><br>in Wales."
         </div>
@@ -530,7 +534,7 @@
       <div class="lineup-friday">
         <span class="lineup-date">Friday 2nd October</span>
         <div class="lineup-friday__title">Friends &amp; Family DJ Sets</div>
-        <p class="t-body lineup-friday__copy">Free for all, rave style. Get the weekend going. Lineup TBC.</p>
+        <p class="t-body lineup-friday__copy" style="font-size:1.15em;font-weight:600;color:var(--white)">Welcome meal! Free for all, rave style. Get the weekend going. Lineup TBC.</p>
       </div>
     </div>
     <div class="lineup-saturday">
@@ -593,7 +597,7 @@
           <span class="lineup-item__name">Algorithmic</span>
         </div>
         <div class="lineup-item">
-          <span class="lineup-item__name">Sophie &amp; Fi</span>
+          <span class="lineup-item__name">Sophie &amp; FFiinn</span>
         </div>
       </div>
     </div>
@@ -638,7 +642,7 @@
         <div class="plan-event">
           <span class="plan-event__time">Evening</span>
           <span class="plan-event__name">Bar Open + Friends &amp; Fam DJ Sets + Fire Pit</span>
-          <span class="plan-event__sub">Free for all. Maybe a welcome meal, subject to ticket sales</span>
+          <span class="plan-event__sub">Welcome meal included. Free for all after that.</span>
         </div>
         <div class="plan-event">
           <span class="plan-event__time">Wise advice</span>
@@ -655,11 +659,6 @@
           <span class="plan-event__time">Morning</span>
           <span class="plan-event__name">Natural Pool + Sauna</span>
           <span class="plan-event__sub">Cold pool swim and sauna open for 4 hours. Bring swimwear and a towel</span>
-        </div>
-        <div class="plan-event">
-          <span class="plan-event__time">Afternoon</span>
-          <span class="plan-event__name">Phil &amp; Sophie's Birthday Lunch 🎂</span>
-          <span class="plan-event__sub">Everyone together. Farm-grown food</span>
         </div>
         <div class="plan-event">
           <span class="plan-event__time">12:00</span>
@@ -684,16 +683,11 @@
         </div>
         <div class="plan-event">
           <span class="plan-event__time">Morning</span>
-          <span class="plan-event__name">Sauna</span>
-          <span class="plan-event__sub">The only known cure. Available Sunday morning.</span>
+          <span class="plan-event__name">Farewell Breakfast</span>
+          <span class="plan-event__sub">Included in ticket price. Farm-fresh, something hot.</span>
         </div>
         <div class="plan-event">
           <span class="plan-event__time">Midday</span>
-          <span class="plan-event__name">Send-off Breakfast</span>
-          <span class="plan-event__sub">Maybe included, subject to ticket sales. Farm-fresh, something hot</span>
-        </div>
-        <div class="plan-event">
-          <span class="plan-event__time">Afternoon</span>
           <span class="plan-event__name">Pack Down + Head Home</span>
           <span class="plan-event__sub">Leave it as you found it. Drive safely. See you in 40 years.</span>
         </div>
@@ -725,8 +719,15 @@
           <div class="feature-item">
             <span class="feature-item__icon">🚐</span>
             <div class="feature-item__content">
-              <span class="feature-item__title">Live-In Vehicles Welcome</span>
-              <p class="t-body" style="font-size:14px">Space on site for campervans and motorhomes. Register your vehicle when you buy your ticket. Contact us about accessibility or sensory needs.</p>
+              <span class="feature-item__title">Live-In Vehicles (Included in Ticket)</span>
+              <p class="t-body" style="font-size:14px">Space on site for campervans and motorhomes. Select the live-in vehicle option when you buy your ticket.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-item__icon">♿</span>
+            <div class="feature-item__content">
+              <span class="feature-item__title">Accessibility &amp; Sensory Needs</span>
+              <p class="t-body" style="font-size:14px">Have specific requirements? Get in touch before you come. <a href="mailto:bigphat40th@gmail.com" style="color:var(--orange);text-decoration:none">bigphat40th@gmail.com</a></p>
             </div>
           </div>
           <div class="feature-item">
@@ -739,8 +740,8 @@
           <div class="feature-item">
             <span class="feature-item__icon">💧</span>
             <div class="feature-item__content">
-              <span class="feature-item__title">Sauna</span>
-              <p class="t-body" style="font-size:14px">On-site sauna. Available Saturday and Sunday mornings. Essential.</p>
+              <span class="feature-item__title">Sauna + Natural Cold Pool</span>
+              <p class="t-body" style="font-size:14px">On-site sauna and natural cold pool. Available Saturday morning only.</p>
             </div>
           </div>
         </div>
@@ -755,23 +756,13 @@
             </div>
             <div class="divider-thin"></div>
             <div style="display:flex;flex-direction:column;gap:4px">
-              <span class="t-body-strong">No day visitors</span>
-              <p class="t-body" style="font-size:14px">Everyone stays on site for the full weekend. It keeps the headcount right and the vibe right.</p>
-            </div>
-            <div class="divider-thin"></div>
-            <div style="display:flex;flex-direction:column;gap:4px">
-              <span class="t-body-strong">No kids or dogs</span>
+              <span class="t-body-strong">No kids or dogs - SOZ</span>
               <p class="t-body" style="font-size:14px">Sorry, adults only.</p>
             </div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)">
-          <div class="venue-img-wrap">
-            <img src="images/glamping.jpg" alt="Glamping at Three Pools" class="venue-img" style="aspect-ratio:4/3" loading="lazy">
-          </div>
-          <div class="venue-img-wrap">
-            <img src="images/accommodation.jpg" alt="Three Pools accommodation" class="venue-img" style="aspect-ratio:4/3" loading="lazy">
-          </div>
+        <div class="venue-img-wrap">
+          <img src="images/glamping.jpg" alt="Glamping at Three Pools" class="venue-img" style="aspect-ratio:16/7;width:100%" loading="lazy">
         </div>
         <a href="https://www.threepools.co.uk/event-details/phils-40th-accommodation" target="_blank" rel="noopener" class="btn btn-secondary" style="align-self:flex-start">Book a bell tent at Three Pools ↗</a>
       </div>
@@ -788,7 +779,7 @@
     <div class="section-header">
       <span class="t-label">★ Farm to Plate</span>
       <h2 class="t-section-title">Food + Drink</h2>
-      <p class="t-body" style="max-width:560px">Three Pools grows its own food on site. Fresh farm produce sold throughout the weekend, with vegan and gluten free options. Self-catering welcome, BYOB allowed back at the campsite.</p>
+      <p class="t-body" style="max-width:560px">Welcome meal (Friday) and farewell breakfast (Sunday) included in ticket price. Three Pools grows its own food on site. Fresh farm produce sold throughout the weekend, with vegan and gluten free options. Self-catering welcome, (Hot water urn and hob facilities on site) BYOB for campsite sesh.</p>
     </div>
     <div class="two-col">
       <div class="feature-list">
@@ -809,8 +800,8 @@
         <div class="feature-item">
           <span class="feature-item__icon">🎂</span>
           <div class="feature-item__content">
-            <span class="feature-item__title">Welcome Meal, Birthday Lunch, Send-off Breakfast</span>
-            <p class="t-body" style="font-size:14px">Saturday birthday lunch on site. Friday welcome meal and Sunday send-off breakfast maybe included, subject to ticket sales.</p>
+            <span class="feature-item__title">Welcome Meal + Farewell Breakfast</span>
+            <p class="t-body" style="font-size:14px">Friday welcome meal and Sunday farewell breakfast included in your ticket. Saturday, farm food is available to buy on site.</p>
           </div>
         </div>
       </div>
@@ -902,30 +893,36 @@
           <div class="ticket-card__name">Weekend Ticket</div>
         </div>
         <div class="ticket-card__price"><span>£</span>90</div>
+        <ul class="ticket-includes">
+          <li>Arrive Friday 2nd October</li>
+          <li>Leave Sunday 4th October</li>
+          <li>Camping pitch / live in vehicle pitch and facilities included in ticket price</li>
+          <li>2 meals included in ticket price</li>
+          <li>Bands Saturday 12:00–21:30</li>
+          <li>Rave barn Friday &amp; Saturday nights (in the sleeve with VOID Soundsystem)</li>
+          <li>Cold pool and sauna access</li>
+          <li>Bar and food options</li>
+        </ul>
         <div class="ticket-card__footer">
           <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center">I'm in</a>
-        </div>
-      </div>
-      <!-- Campervan -->
-      <div class="ticket-card">
-        <div class="ticket-card__badge">Got a Van?</div>
-        <div style="display:flex;flex-direction:column;gap:var(--s1)">
-          <span class="t-label">Live-In Vehicle</span>
-          <div class="ticket-card__name">Campervan / Motorhome</div>
-        </div>
-        <div class="ticket-card__price"><span>£</span>90</div>
-        <div class="ticket-card__footer">
-          <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">I'm in</a>
         </div>
       </div>
       <!-- Glamping -->
       <div class="ticket-card">
         <div class="ticket-card__badge">Feeling Posh?</div>
         <div style="display:flex;flex-direction:column;gap:var(--s1)">
-          <span class="t-label">Upgrade Available - £250 per tent</span>
-          <div class="ticket-card__name">Glamping Bell Tent</div>
+          <span class="t-label">Separate purchase on the Three Pools site</span>
+          <div class="ticket-card__name">4-Person Glamping Bell Tent</div>
         </div>
-        <div class="ticket-card__price"><span>£</span>90</div>
+        <div class="ticket-card__price" style="font-size:clamp(36px,4vw,56px);line-height:1.1">£250<br><span style="font-size:16px">per 4 person tent</span><br><span style="font-size:13px;color:var(--white-dim)">on top of ticket price</span></div>
+        <ul class="ticket-includes">
+          <li>Buy your £90 ticket here first</li>
+          <li>Only 10 bell tents available</li>
+          <li>£250 per 4 berth tent</li>
+          <li>Pre-pitched, beds and bedding included</li>
+          <li>Once they're gone they're gone</li>
+          <li>Book direct at Three Pools</li>
+        </ul>
         <div class="ticket-card__footer">
           <a href="https://www.threepools.co.uk/event-details/phils-40th-accommodation" target="_blank" rel="noopener" class="btn btn-secondary" style="width:100%;justify-content:center">Book a bell tent ↗</a>
         </div>
@@ -972,30 +969,56 @@
 
 <div class="divider"></div>
 
+<!-- ══ HONOURABLE MENTIONS ══ -->
+<section class="sec tight" style="text-align:center">
+  <div class="container" style="align-items:center;gap:var(--s5)">
+    <div class="section-header" style="align-items:center">
+      <span class="t-label">★ Also celebrating this weekend</span>
+      <h2 class="t-section-title">Happy Birthday to...</h2>
+      <p class="t-body" style="max-width:560px">These lot have birthdays on or around the same weekend. Get in.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s3)">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Zarya</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Faraz</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Jesse Rushworth</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Bella</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Tom Irving</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Drennan</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- ══ SUNDAY ══ -->
 <section id="sunday">
   <div class="container" style="align-items:center">
     <div class="sunday-big" aria-hidden="true">SUNDAY</div>
     <div class="sunday-content">
       <h2 class="t-section-title" style="text-align:center">The Comedown</h2>
-      <p class="t-body" style="text-align:center">Sunday is sacred. No rush, no agenda. Coffee, warm food, stories from the barn. Then home safely. That's the only rule.</p>
+      <p class="t-body" style="text-align:center">Farewell breakfast served 10am–11.30am. Pack down tents and leave safely.</p>
       <div style="display:flex;flex-direction:column;gap:var(--s3);width:100%">
         <div class="info-card" style="flex-direction:row;align-items:flex-start;gap:var(--s4)">
           <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;width:48px">AM</div>
           <div style="display:flex;flex-direction:column;gap:4px">
             <span class="t-body-strong">Slow Start</span>
-            <span class="t-body" style="font-size:14px">Crawl out of whatever you crawled into. Coffee on. Sauna on. No judgement for the state anyone's in.</span>
+            <span class="t-body" style="font-size:14px">Crawl out of whatever you crawled into. Coffee on. Breakfast. Fuck Off.</span>
           </div>
         </div>
         <div class="info-card" style="flex-direction:row;align-items:flex-start;gap:var(--s4)">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;width:48px">12</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;width:72px">10-11:30</div>
           <div style="display:flex;flex-direction:column;gap:4px">
-            <span class="t-body-strong">Sunday Brunch Together</span>
-            <span class="t-body" style="font-size:14px">Farm-fresh brunch before everyone heads off. Come as you are. Bring tent hair.</span>
+            <span class="t-body-strong">Farewell Breakfast</span>
+            <span class="t-body" style="font-size:14px">Farm-fresh breakfast before everyone heads off.</span>
           </div>
         </div>
         <div class="info-card" style="flex-direction:row;align-items:flex-start;gap:var(--s4)">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;width:48px">PM</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;width:72px">Midday</div>
           <div style="display:flex;flex-direction:column;gap:4px">
             <span class="t-body-strong">Pack Down + Home Time</span>
             <span class="t-body" style="font-size:14px">Take everything you brought. Leave only footprints. Drive safely. See you in 40 years.</span>
@@ -1009,7 +1032,7 @@
 
 <div class="marquee-wrap dark" aria-hidden="true">
   <div class="marquee-track" style="animation-direction:reverse;animation-duration:28s">
-    <span>★ DJ PRODUCER</span><span>★ TEKNOIST</span><span>★ BREAKWHORE & GIZMODE</span><span>★ S.MURK</span><span>★ ALGORITHMIC</span><span>★ SOPHIE &amp; FI B2B SET</span><span>★ RAVE BARN</span><span>★ 2–4 OCT 2026</span><span>★ DJ PRODUCER</span><span>★ TEKNOIST</span><span>★ BREAKWHORE & GIZMODE</span><span>★ S.MURK</span><span>★ ALGORITHMIC</span><span>★ SOPHIE &amp; FI B2B SET</span><span>★ RAVE BARN</span><span>★ 2–4 OCT 2026</span>
+    <span>★ DJ PRODUCER</span><span>★ TEKNOIST</span><span>★ BREAKWHORE & GIZMODE</span><span>★ S.MURK</span><span>★ ALGORITHMIC</span><span>★ SOPHIE &amp; FFIINN B2B SET</span><span>★ RAVE BARN</span><span>★ 2–4 OCT 2026</span><span>★ DJ PRODUCER</span><span>★ TEKNOIST</span><span>★ BREAKWHORE & GIZMODE</span><span>★ S.MURK</span><span>★ ALGORITHMIC</span><span>★ SOPHIE &amp; FFIINN B2B SET</span><span>★ RAVE BARN</span><span>★ 2–4 OCT 2026</span>
   </div>
 </div>
 <div class="divider"></div>
@@ -1022,6 +1045,7 @@
         <div class="footer-title">Phil & Sophie's Big Phat 40th</div>
         <span style="font-size:13px;color:var(--white-dim);letter-spacing:.06em">2nd–4th October 2026 · Three Pools Permaculture Farm · Abergavenny, Wales</span>
         <span style="font-size:12px;color:rgba(242,242,242,.3)">Private event · £90 covers costs, no profit · Bands + Void Rave + Sauna</span>
+        <p style="font-size:13px;color:var(--white-dim);margin-top:4px">Any queries: <a href="mailto:bigphat40th@gmail.com" style="color:var(--orange);text-decoration:none">bigphat40th@gmail.com</a></p>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:var(--s2)">
         <div style="display:flex;gap:var(--s2);flex-wrap:wrap;">
