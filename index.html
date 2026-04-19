@@ -253,6 +253,19 @@
     animation:dotPulse 2.4s ease-in-out infinite;
     opacity:.2;
   }
+  #birthday-names-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:var(--s3);
+  }
+  .birthday-line{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:baseline;
+    gap:var(--s3);
+  }
 
   /* FOOTER */
   .footer-inner{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:var(--s4);padding-block:var(--s4);flex-wrap:wrap}
@@ -497,7 +510,7 @@
             color: colors[Math.floor(Math.random() * colors.length)],
             life: 1,
             decay: Math.random() * 0.018 + 0.012,
-            size: Math.floor(Math.random() * 4) + 2
+            size: Math.floor(Math.random() * 4) + 4
           });
         }
       }
@@ -1198,24 +1211,21 @@
       <h2 id="birthday-crew-title" class="t-section-title" style="font-size:clamp(64px,10vw,140px)">Birthday Crew</h2>
       <span class="t-label" style="font-size:clamp(13px,2vw,22px);color:var(--white)">Also celebrating on the weekend:</span>
     </div>
-    <div id="birthday-names-wrap" style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s3)">
-      <span style="display:inline-flex;align-items:baseline;gap:var(--s3);white-space:nowrap">
+    <div id="birthday-names-wrap">
+      <div class="birthday-line">
         <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em;animation-delay:.04s">Bella</span>
         <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
         <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--white);letter-spacing:.04em;animation-delay:.16s">Drennan</span>
-      </span>
-      <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
-      <span style="display:inline-flex;align-items:baseline;gap:var(--s3);white-space:nowrap">
-        <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em;animation-delay:.28s">Faraz</span>
         <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
+        <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em;animation-delay:.28s">Faraz</span>
+      </div>
+      <div class="birthday-line">
         <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--white);letter-spacing:.04em;animation-delay:.4s">Jesse Rushworth</span>
-      </span>
-      <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
-      <span style="display:inline-flex;align-items:baseline;gap:var(--s3);white-space:nowrap">
+        <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
         <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em;animation-delay:.52s">Tom Irving</span>
         <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
         <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--white);letter-spacing:.04em;animation-delay:.64s">Zarya</span>
-      </span>
+      </div>
     </div>
   </div>
 </section>
