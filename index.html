@@ -60,14 +60,15 @@
   .hero__bg-text{position:absolute;top:-.05em;left:0;right:0;font-family:'Bebas Neue',sans-serif;font-size:44vw;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,90,0,.07);text-align:center;pointer-events:none;user-select:none}
   .hero__phil-img{position:absolute;right:0;top:0;height:min(100%,80vw);width:auto;opacity:.18;pointer-events:none;user-select:none;filter:grayscale(1) contrast(1.3);mix-blend-mode:luminosity}
   .hero-phil{}
-  .hero__banner-img{position:absolute;right:0;left:auto;bottom:126px;width:min(90vw,1345px);height:auto;max-width:none;opacity:1;filter:saturate(.9);mix-blend-mode:normal;transform:translateX(15vw);margin-bottom:-1px;pointer-events:none;user-select:none;z-index:1}
+  .hero__top{position:relative;display:flex;align-items:flex-end;min-height:clamp(360px,48vw,760px);width:100%}
+  .hero__banner-img{position:absolute;right:calc(50% - 50vw);left:auto;bottom:0;width:min(90vw,1345px);height:auto;max-width:none;opacity:1;filter:saturate(.9);mix-blend-mode:normal;transform:translateX(15vw);pointer-events:none;user-select:none;z-index:3}
   .hero__content{display:flex;flex-direction:column;gap:0;position:relative;z-index:2;width:100%}
   .hero__announcement{display:inline-flex;align-items:center;padding:var(--s2) var(--s3);border-left:4px solid var(--orange);background:rgba(255,90,0,.07);max-width:max-content}
   .hero__title{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,14.5vw,220px);line-height:.82;letter-spacing:.01em;text-transform:uppercase;display:flex;flex-direction:column}
   .hero__title .l1{color:var(--white)}
   .hero__title .l2{color:var(--orange);text-shadow:0 0 60px rgba(255,90,0,.35)}
   .hero__title .l3{color:var(--white)}
-  .hero__meta{position:relative;z-index:2;display:flex;flex-direction:row;align-items:center;align-self:stretch;gap:var(--s6);flex-wrap:wrap;background:#0B0B0B;padding-block:var(--s2);padding-inline:max(var(--page-pad),calc((100vw - var(--content-max))/2));border-radius:0;border-top:1px solid rgba(242,242,242,.3);width:100vw;max-width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+  .hero__meta{position:relative;z-index:4;display:flex;flex-direction:row;align-items:center;align-self:stretch;gap:var(--s6);flex-wrap:wrap;background:#0B0B0B;padding-block:var(--s2);padding-inline:max(var(--page-pad),calc((100vw - var(--content-max))/2));border-radius:0;border-top:1px solid rgba(242,242,242,.3);width:100vw;max-width:100vw;box-sizing:border-box;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
   .hero__meta-item{display:flex;flex-direction:column;gap:4px}
   .hero__meta-item .val{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
   .hero__sep{width:1px;height:40px;background:rgba(242,242,242,.15)}
@@ -392,11 +393,14 @@
     .hero__bg-text{display:none}
     #hero{min-height:unset;padding-top:72px;padding-bottom:calc(var(--s6) + 44px);justify-content:flex-start}
     .hero__phil-img{display:block;height:85%;width:auto;opacity:.13;top:48px;left:calc(100% - 600px)}
-    .hero__banner-img{position:absolute;top:48px;right:-8vw;left:auto;width:min(100vw,870px);height:auto;opacity:1;transform:none}
+    .hero__content{align-items:center}
+    .hero__top{display:flex;flex-direction:column;align-items:center;min-height:unset;gap:0;width:100%}
+    .hero__title{text-align:left;align-items:flex-start;width:100%}
+    .hero__banner-img{position:relative;top:auto;bottom:auto;right:auto;left:auto;width:min(90vw,920px);height:auto;opacity:1;transform:translateX(25vw);margin-top:-140px}
     .hero__cta .btn-primary{background:transparent;color:var(--orange);border:2px solid var(--orange)}
     .hero__cta .btn-primary:hover{background:var(--orange);color:var(--bg)}
     .hero__cta .btn-secondary{display:none}
-    .hero__actions{margin-bottom:var(--s5)}
+    .hero__actions{margin-bottom:var(--s5);align-self:center}
   
 
     .nav-link{font-size:12px;padding:4px 8px}
@@ -409,7 +413,7 @@
 
   @media(max-width:660px){
     .hero__phil-img{right:-15% !important}
-    .hero__banner-img{right:-10vw !important;width:min(100vw,730px);transform:none}
+    .hero__banner-img{right:auto !important;left:auto !important;width:min(90vw,780px);transform:translateX(25vw)}
     .nav-sep-star{display:none}
     .nav-sep-pipe{display:inline}
     .nav-link{font-size:11px;padding:4px 2px}
@@ -665,14 +669,16 @@
 <!-- ══ HERO ══ -->
 <section id="hero">
   <div class="hero__bg-text" aria-hidden="true">40</div>
-  <img src="images/BestBanner.png" alt="" class="hero__phil-img hero-phil hero__banner-img" aria-hidden="true">
   <div class="container">
     <div class="hero__content">
-      <div class="hero__title">
-        <span class="l1">Phil &</span>
-        <span class="l1">Sophie's</span>
-        <span class="l2">Big Phat</span>
-        <span class="l3">40th</span>
+      <div class="hero__top">
+        <div class="hero__title">
+          <span class="l1">Phil &</span>
+          <span class="l1">Sophie's</span>
+          <span class="l2">Big Phat</span>
+          <span class="l3">40th</span>
+        </div>
+        <img src="images/BestBanner.png" alt="" class="hero__phil-img hero-phil hero__banner-img" aria-hidden="true">
       </div>
       <div class="hero__meta">
         <div class="hero__meta-item">
@@ -728,8 +734,8 @@
   <div class="container">
     <div class="phil-block">
       <div class="phil-photos">
-        <img src="images/PhilSquare.jpg" alt="Phil" class="phil-square-img" loading="lazy" decoding="async">
-        <img src="images/SophSquare.jpg" alt="Sophie" class="phil-square-img" loading="lazy" decoding="async">
+        <img src="images/PhilSquare2.jpg" alt="Phil" class="phil-square-img" loading="lazy" decoding="async">
+        <img src="images/SophSquare2.jpg" alt="Sophie" class="phil-square-img" loading="lazy" decoding="async">
       </div>
       <div style="display:flex;flex-direction:column;gap:var(--s4)">
         <span class="t-label">Legends turning 40 in style!</span>
