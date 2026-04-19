@@ -217,6 +217,23 @@
     70%{opacity:1;text-shadow:1px 0 #ff0050;transform:translateX(1px)}
     100%{opacity:1;text-shadow:none;transform:none}
   }
+  @keyframes nameGlitch2{
+    0%{opacity:1;text-shadow:none;transform:none}
+    15%{opacity:1;text-shadow:3px 0 #ff0050,-3px 0 #00e5ff;transform:translateX(2px) skewX(2deg)}
+    30%{opacity:1;text-shadow:-3px 0 #ff0050,3px 0 #00e5ff;transform:translateX(-2px) skewX(-2deg)}
+    50%{opacity:1;text-shadow:2px 0 #ff0050,-2px 0 #00e5ff;transform:translateX(1px)}
+    70%{opacity:1;text-shadow:-1px 0 #ff0050;transform:translateX(-1px)}
+    100%{opacity:1;text-shadow:none;transform:none}
+  }
+  @keyframes nameGlitch3{
+    0%{opacity:1;text-shadow:none;transform:none}
+    10%{opacity:1;text-shadow:2px 0 #00e5ff,-2px 0 #ff0050;transform:translateX(1px) skewX(1deg)}
+    25%{opacity:1;text-shadow:-5px 0 #00e5ff,5px 0 #ff0050;transform:translateX(-4px) skewX(-3deg)}
+    45%{opacity:1;text-shadow:5px 0 #00e5ff,-5px 0 #ff0050;transform:translateX(4px) skewX(2deg)}
+    65%{opacity:1;text-shadow:-2px 0 #00e5ff,2px 0 #ff0050;transform:translateX(-1px)}
+    80%{opacity:1;text-shadow:1px 0 #ff0050;transform:none}
+    100%{opacity:1;text-shadow:none;transform:none}
+  }
   @keyframes dotPulse{
     0%,100%{opacity:.2}
     50%{opacity:.55}
@@ -231,9 +248,6 @@
   }
   .birthday-name.glitching,#birthday-crew-title.glitching{
     animation:nameGlitch .4s steps(3) forwards!important;
-  }
-  #birthday-crew-title.glitching{
-    animation-duration:.2s!important;
   }
   .birthday-dot{
     animation:dotPulse 2.4s ease-in-out infinite;
@@ -499,29 +513,34 @@
     var bdWrap = document.getElementById('birthday-names-wrap');
     var bdTitle = document.getElementById('birthday-crew-title');
 
-    function fizzleTitle(remaining){
-      if(!bdTitle || remaining <= 0) return;
-      bdTitle.classList.add('glitching');
+    var titleGlitches = ['nameGlitch','nameGlitch2','nameGlitch3'];
+    function fizzleTitle(remaining, onDone){
+      if(!bdTitle || remaining <= 0){ if(onDone) onDone(); return; }
+      var anim = titleGlitches[3 - remaining];
+      bdTitle.style.animation = anim + ' .1s steps(3) forwards';
       bdTitle.addEventListener('animationend', function onTitleFizzle(){
-        bdTitle.classList.remove('glitching');
+        bdTitle.style.animation = 'none';
         bdTitle.removeEventListener('animationend', onTitleFizzle);
-        if(remaining > 1) setTimeout(function(){ fizzleTitle(remaining - 1); }, 80);
+        if(remaining > 1){
+          fizzleTitle(remaining - 1, onDone);
+        } else {
+          if(onDone) setTimeout(onDone, 28);
+        }
       });
     }
 
     function startSequence(){
-      fizzleTitle(3);
-      setTimeout(function(){
+      fizzleTitle(3, function(){
+        bdWrap.classList.add('birthday-names-visible');
         var shuffled = bdNames.slice().sort(function(){ return Math.random() - 0.5; });
         fizzleWave(shuffled, 0);
-      }, 900);
+      });
     }
 
     if(bdWrap && 'IntersectionObserver' in window){
       var bdObs = new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
           if(entry.isIntersecting){
-            entry.target.classList.add('birthday-names-visible');
             bdObs.unobserve(entry.target);
             startSequence();
           }
@@ -529,7 +548,6 @@
       },{threshold:0.2});
       bdObs.observe(bdWrap);
     } else if(bdWrap){
-      bdWrap.classList.add('birthday-names-visible');
       startSequence();
     }
 
