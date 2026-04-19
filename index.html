@@ -204,6 +204,42 @@
   .sunday-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,18vw,260px);line-height:.85;color:var(--orange);opacity:.12;text-align:center}
   .sunday-content{display:flex;flex-direction:column;gap:var(--s4);align-items:center;max-width:640px;margin-top:calc(-1 * var(--s12))}
 
+  /* BIRTHDAY CREW ANIMATIONS */
+  @keyframes nameReveal{
+    from{opacity:0;transform:translateY(32px) skewX(-4deg)}
+    to{opacity:1;transform:translateY(0) skewX(0deg)}
+  }
+  @keyframes nameGlitch{
+    0%{opacity:1;text-shadow:none;transform:none}
+    15%{opacity:1;text-shadow:-3px 0 #ff0050,3px 0 #00e5ff;transform:translateX(-2px) skewX(-2deg)}
+    30%{opacity:1;text-shadow:3px 0 #ff0050,-3px 0 #00e5ff;transform:translateX(2px) skewX(2deg)}
+    50%{opacity:1;text-shadow:-2px 0 #ff0050,2px 0 #00e5ff;transform:translateX(-1px)}
+    70%{opacity:1;text-shadow:1px 0 #ff0050;transform:translateX(1px)}
+    100%{opacity:1;text-shadow:none;transform:none}
+  }
+  @keyframes dotPulse{
+    0%,100%{opacity:.2}
+    50%{opacity:.55}
+  }
+  .birthday-name{
+    opacity:0;
+    cursor:default;
+    transition:transform .15s ease;
+  }
+  .birthday-names-visible .birthday-name{
+    animation:nameReveal .44s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  .birthday-name.glitching,#birthday-crew-title.glitching{
+    animation:nameGlitch .4s steps(3) forwards!important;
+  }
+  #birthday-crew-title.glitching{
+    animation-duration:1.2s!important;
+  }
+  .birthday-dot{
+    animation:dotPulse 2.4s ease-in-out infinite;
+    opacity:.2;
+  }
+
   /* FOOTER */
   .footer-inner{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:var(--s4);padding-block:var(--s4);flex-wrap:wrap}
   .footer-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.06em;color:var(--orange)}
@@ -408,6 +444,92 @@
           link.classList.toggle('active', href === current);
         });
       }, {passive:true});
+    }
+
+
+
+    // Birthday Crew — wait for all names to reveal, then fizzle as a wave
+    var waveComplete = false;
+    var fizzleDoneCount = 0;
+
+    function lockAndWireHover(el){
+      el.style.opacity = '1';
+      el.style.animation = 'none';
+      el.addEventListener('mouseenter', function(){
+        if(!waveComplete || el.classList.contains('glitching')) return;
+        el.style.animation = '';
+        el.classList.add('glitching');
+        el.addEventListener('animationend', function onGlitch(){
+          el.classList.remove('glitching');
+          el.style.opacity = '1';
+          el.style.animation = 'none';
+          el.removeEventListener('animationend', onGlitch);
+        });
+      });
+    }
+
+    function fizzleWave(names, index){
+      if(index >= names.length) return;
+      var el = names[index];
+      el.style.animation = '';
+      el.classList.add('glitching');
+      el.addEventListener('animationend', function onFizzle(){
+        el.classList.remove('glitching');
+        el.removeEventListener('animationend', onFizzle);
+        lockAndWireHover(el);
+        fizzleDoneCount++;
+        if(fizzleDoneCount === bdNames.length) waveComplete = true;
+      });
+      // Trigger next name after this one starts (overlapping wave)
+      setTimeout(function(){ fizzleWave(names, index + 1); }, 130);
+    }
+
+    var bdNames = Array.from(document.querySelectorAll('.birthday-name'));
+
+    bdNames.forEach(function(el){
+      el.addEventListener('animationend', function onReveal(e){
+        if(e.animationName !== 'nameReveal') return;
+        el.removeEventListener('animationend', onReveal);
+        el.style.opacity = '1';
+        el.style.animation = 'none';
+      });
+    });
+
+    // Birthday Crew entrance animation
+    var bdWrap = document.getElementById('birthday-names-wrap');
+    var bdTitle = document.getElementById('birthday-crew-title');
+
+    function fizzleTitle(){
+      if(!bdTitle) return;
+      bdTitle.classList.add('glitching');
+      bdTitle.addEventListener('animationend', function onTitleFizzle(){
+        bdTitle.classList.remove('glitching');
+        bdTitle.removeEventListener('animationend', onTitleFizzle);
+      });
+    }
+
+    function startSequence(){
+      fizzleTitle();
+      setTimeout(function(){
+        var shuffled = bdNames.slice().sort(function(){ return Math.random() - 0.5; });
+        fizzleWave(shuffled, 0);
+      }, 900);
+    }
+
+    if(bdWrap && 'IntersectionObserver' in window){
+      var bdObs = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('birthday-names-visible');
+            bdObs.unobserve(entry.target);
+            startSequence();
+          }
+        });
+      },{threshold:0.2});
+      bdObs.observe(bdWrap);
+    } else if(bdWrap){
+      bdWrap.classList.add('birthday-names-visible');
+      startSequence();
     }
 
   });
@@ -978,21 +1100,27 @@
 <section class="sec tight" style="text-align:center">
   <div class="container" style="align-items:center;gap:var(--s5)">
     <div class="section-header" style="align-items:center">
-      <h2 class="t-section-title" style="font-size:clamp(64px,10vw,140px)">Birthday Crew</h2>
+      <h2 id="birthday-crew-title" class="t-section-title" style="font-size:clamp(64px,10vw,140px)">Birthday Crew</h2>
       <span class="t-label" style="font-size:clamp(13px,2vw,22px);color:var(--white)">Also celebrating on the weekend:</span>
     </div>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s3)">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Zarya</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--white);letter-spacing:.04em">Faraz</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Jesse Rushworth</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--white);letter-spacing:.04em">Bella</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Tom Irving</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:rgba(242,242,242,.25);letter-spacing:.04em">·</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--white);letter-spacing:.04em">Drennan</span>
+    <div id="birthday-names-wrap" style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s3)">
+      <span style="display:inline-flex;align-items:baseline;gap:var(--s3);white-space:nowrap">
+        <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em;animation-delay:.04s">Bella</span>
+        <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
+        <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--white);letter-spacing:.04em;animation-delay:.16s">Drennan</span>
+      </span>
+      <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
+      <span style="display:inline-flex;align-items:baseline;gap:var(--s3);white-space:nowrap">
+        <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em;animation-delay:.28s">Faraz</span>
+        <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
+        <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--white);letter-spacing:.04em;animation-delay:.4s">Jesse Rushworth</span>
+      </span>
+      <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
+      <span style="display:inline-flex;align-items:baseline;gap:var(--s3);white-space:nowrap">
+        <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em;animation-delay:.52s">Tom Irving</span>
+        <span class="birthday-dot" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);letter-spacing:.04em">·</span>
+        <span class="birthday-name" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--white);letter-spacing:.04em;animation-delay:.64s">Zarya</span>
+      </span>
     </div>
   </div>
 </section>
