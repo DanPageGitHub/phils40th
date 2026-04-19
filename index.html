@@ -484,6 +484,7 @@
       var ctx = canvas.getContext('2d');
       var colors = ['#FF5A00','#FF7A1A','#FF5A00','#F2F2F2','#FFFFFF','#FF5A00'];
       var particles = [];
+      var pendingBursts = 0;
 
       function spawnBurst(x, y, count){
         for(var i = 0; i < count; i++){
@@ -496,18 +497,20 @@
             color: colors[Math.floor(Math.random() * colors.length)],
             life: 1,
             decay: Math.random() * 0.018 + 0.012,
-            size: Math.floor(Math.random() * 3) + 2
+            size: Math.floor(Math.random() * 4) + 2
           });
         }
       }
 
       // 5 bursts scattered across the section, staggered
       var burstPositions = [0.2,0.4,0.6,0.8,0.5];
+      pendingBursts = burstPositions.length;
       burstPositions.forEach(function(xFrac, i){
         setTimeout(function(){
           var x = canvas.width * xFrac;
           var y = canvas.height * (0.25 + Math.random() * 0.5);
           spawnBurst(x, y, 35);
+          pendingBursts--;
         }, i * 160);
       });
 
@@ -525,7 +528,7 @@
           p.life -= p.decay;
         });
         ctx.globalAlpha = 1;
-        if(particles.length > 0) requestAnimationFrame(animate);
+        if(particles.length > 0 || pendingBursts > 0) requestAnimationFrame(animate);
         else ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
       animate();
