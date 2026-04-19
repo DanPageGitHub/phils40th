@@ -91,9 +91,13 @@
   .marquee-wrap.dark .marquee-track span{color:rgba(255,90,0,.65)}
 
   /* PHIL SECTION */
-  .phil-block{display:grid;grid-template-columns:auto 1fr;gap:var(--s8);align-items:center}
-  .phil-photos{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);width:300px;flex-shrink:0}
+  .phil-block{display:grid;grid-template-columns:2fr 3fr;gap:var(--s8);align-items:start}
+  .phil-photos{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);width:100%}
   .phil-square-img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top;border:4px solid var(--orange)}
+  @media(max-width:1024px){
+    .phil-block{grid-template-columns:1fr}
+    .phil-photos{max-width:540px}
+  }
   .phil-quote{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.5vw,50px);line-height:1.05;letter-spacing:.02em}
   .phil-quote span{color:var(--orange)}
 
@@ -127,7 +131,7 @@
   .rave-label{color:var(--orange)}
   .lineup-item{display:flex;flex-direction:column;gap:3px;padding-block:var(--s2);border-bottom:none;transition:transform .2s}
   .lineup-item:hover{transform:translateX(10px)}
-  .lineup-item__name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(29px,3.25vw,44px);font-weight:900;text-transform:uppercase;letter-spacing:.05em;line-height:1}
+  .lineup-item__name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(29px,3.25vw,44px);font-weight:400;text-transform:uppercase;letter-spacing:.05em;line-height:1}
   .lineup-item__detail{font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--white-dim)}
   .lineup-item.headliner .lineup-item__name{font-size:clamp(42px,5.2vw,68px);color:var(--orange)}
   .lineup-item.headliner .lineup-item__detail{color:var(--orange-2)}
@@ -534,7 +538,7 @@
       <div class="lineup-friday">
         <span class="lineup-date">Friday 2nd October</span>
         <div class="lineup-friday__title">Friends &amp; Family DJ Sets</div>
-        <p class="t-body lineup-friday__copy" style="font-size:1.15em;font-weight:600;color:var(--white)">Welcome meal! Free for all, rave style. Get the weekend going. Lineup TBC.</p>
+        <p class="t-body lineup-friday__copy">Welcome meal! Free for all, rave style. Get the weekend going. Lineup TBC.</p>
       </div>
     </div>
     <div class="lineup-saturday">
@@ -975,7 +979,7 @@
     <div class="section-header" style="align-items:center">
       <span class="t-label">★ Also celebrating this weekend</span>
       <h2 class="t-section-title">Happy Birthday to...</h2>
-      <p class="t-body" style="max-width:560px">These lot have birthdays on or around the same weekend. Get in.</p>
+      <p class="t-body" style="max-width:560px">This lot have birthdays on or around the time.</p>
     </div>
     <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s3)">
       <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,52px);color:var(--orange);letter-spacing:.04em">Zarya</span>
@@ -1011,14 +1015,14 @@
           </div>
         </div>
         <div class="info-card" style="flex-direction:row;align-items:flex-start;gap:var(--s4)">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;width:72px">10-11:30</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;white-space:nowrap">10-11:30</div>
           <div style="display:flex;flex-direction:column;gap:4px">
             <span class="t-body-strong">Farewell Breakfast</span>
             <span class="t-body" style="font-size:14px">Farm-fresh breakfast before everyone heads off.</span>
           </div>
         </div>
         <div class="info-card" style="flex-direction:row;align-items:flex-start;gap:var(--s4)">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;width:72px">Midday</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;white-space:nowrap">Midday</div>
           <div style="display:flex;flex-direction:column;gap:4px">
             <span class="t-body-strong">Pack Down + Home Time</span>
             <span class="t-body" style="font-size:14px">Take everything you brought. Leave only footprints. Drive safely. See you in 40 years.</span>
