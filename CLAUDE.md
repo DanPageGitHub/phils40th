@@ -4,7 +4,7 @@
 
 Single-file static event website for Phil's Big Phat 40th Birthday, 2nd–4th October 2026 at Three Pools Permaculture Farm, Abergavenny, Wales.
 
-Live URL: https://phils40th.co.uk
+Live URL: https://bigphat40th.com
 
 `AGENTS.md` is intentionally minimal for Codex-specific notes only. Keep project rules and the source of truth in this file to avoid duplication drifting out of date.
 
@@ -14,7 +14,7 @@ Live URL: https://phils40th.co.uk
 
 - Hosted on **GitHub Pages**, repo: `DanPageGitHub/phils40th`, branch: `main`
 - Custom domain managed via **Names.co.uk** DNS (A records pointing to GitHub Pages IPs)
-- `CNAME` file in repo root contains `phils40th.co.uk` — do not delete or modify this
+- `CNAME` file in repo root should contain the current live domain, currently `bigphat40th.com`
 - No Netlify, no build step, no CI config
 - To deploy: commit and push to `main` — GitHub Pages rebuilds automatically
 
