@@ -738,8 +738,8 @@
       </div>
       <div class="hero__actions">
         <div class="hero__cta">
-          <a href="#tickets" class="btn btn-primary">Tickets</a>
-          <a href="#lineup" class="btn btn-secondary hero__lineup-btn" style="padding:var(--s2) var(--s5)">Lineup</a>
+          <a href="#tickets" class="btn btn-primary" onclick="event.preventDefault();document.getElementById('tickets').scrollIntoView({behavior:'smooth'})">Tickets</a>
+          <a href="#lineup" class="btn btn-secondary hero__lineup-btn" style="padding:var(--s2) var(--s5)" onclick="event.preventDefault();document.getElementById('lineup').scrollIntoView({behavior:'smooth'})">Lineup</a>
         </div>
         <div class="hero__scroll">
           <div class="line"></div>
