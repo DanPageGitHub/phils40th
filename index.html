@@ -22,6 +22,7 @@
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;overflow-x:hidden}
   body{background:var(--bg);color:var(--white);font-family:'Barlow',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+  #lineup,#plan,#camping,#food,#location,#tickets{scroll-margin-top:52px}
   img{content-visibility:auto}
   /* Skip rendering off-screen sections until they scroll near the viewport */
   #plan,#camping,#food,#location,#tickets,#sunday{content-visibility:auto;contain-intrinsic-size:1px 900px}
@@ -421,6 +422,7 @@
     .nav-link{font-size:11px;padding:4px 2px}
     .nav-long{display:none}
     .nav-short{display:inline}
+    #lineup,#plan,#camping,#food,#location,#tickets{scroll-margin-top:60px}
   }
 </style>
   <meta name="description" content="Phil & Sophie's Big Phat 40th. 2nd–4th October 2026. Three Pools Permaculture Farm, Abergavenny. Bands, Void install rave, sauna, Wales. £90 covers costs.">
@@ -476,14 +478,22 @@
       var links = document.querySelectorAll('.nav-link');
       var sections = ['lineup','plan','camping','food','location','tickets'];
 
+      function getNavOffset(){
+        var gap = window.innerWidth <= 660 ? 12 : 4;
+        return nav.getBoundingClientRect().height + gap;
+      }
+
       // Scroll to section without changing URL hash
       links.forEach(function(link){
         link.addEventListener('click', function(e){
           var href = link.getAttribute('href');
           if(href && href.charAt(0) === '#'){
-            e.preventDefault();
             var target = document.getElementById(href.slice(1));
-            if(target) target.scrollIntoView({behavior:'smooth'});
+            if(target){
+              e.preventDefault();
+              var targetTop = target.getBoundingClientRect().top + window.scrollY - getNavOffset();
+              window.scrollTo({top:Math.max(targetTop, 0), behavior:'smooth'});
+            }
           }
         });
       });
@@ -921,8 +931,8 @@
 <section id="plan" class="sec" style="padding-top:var(--s5)">
   <div class="container">
     <div class="section-header" style="margin-bottom:var(--s5)">
-      <span class="t-label">★ The Full Weekend</span>
-      <h2 class="t-section-title">What's Happening</h2>
+      <span class="t-label">★ State o' that</span>
+      <h2 class="t-section-title">Schedule</h2>
     </div>
     <div class="three-col">
       <!-- Friday -->
@@ -976,21 +986,21 @@
       <div class="plan-day">
         <div class="plan-day__date">Sun</div>
         <span class="t-label">4th October 2026</span>
-        <div class="plan-day__title">Comedown + Get Home Safely</div>
+        <div class="plan-day__title">The Comedown</div>
         <div class="plan-event">
-          <span class="plan-event__time">Morning</span>
+          <span class="plan-event__time">AM</span>
           <span class="plan-event__name">Slow Start</span>
-          <span class="plan-event__sub">Crawl out of tent. Find coffee. Reconstruct last night's timeline.</span>
+          <span class="plan-event__sub">Crawl out of whatever you crawled into. Coffee on.</span>
         </div>
         <div class="plan-event">
-          <span class="plan-event__time">Morning</span>
+          <span class="plan-event__time">10–11:30</span>
           <span class="plan-event__name">Farewell Breakfast</span>
-          <span class="plan-event__sub">Included in ticket price. Farm-fresh, something hot.</span>
+          <span class="plan-event__sub">Farm-fresh breakfast before everyone heads off.</span>
         </div>
         <div class="plan-event">
           <span class="plan-event__time">Midday</span>
-          <span class="plan-event__name">Pack Down + Head Home</span>
-          <span class="plan-event__sub">Leave it as you found it. Drive safely. See you in 40 years.</span>
+          <span class="plan-event__name">Pack Down + Fuck Off</span>
+          <span class="plan-event__sub">Take everything you brought. Leave only footprints. Drive safely. See you in 40 years.</span>
         </div>
       </div>
     </div>
@@ -1255,43 +1265,6 @@
         <p class="t-body">Birthday on or near the weekend? Email us for the honourable mentions list.</p>
       </div>
       <a href="mailto:bigphat40th@gmail.com" class="btn btn-secondary" style="align-self:flex-start">bigphat40th@gmail.com ↗</a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══ SUNDAY ══ -->
-<section id="sunday">
-  <div class="container" style="align-items:center">
-    <div class="sunday-big" aria-hidden="true">SUNDAY</div>
-    <div class="sunday-content">
-      <h2 class="t-section-title" style="text-align:center">The Comedown</h2>
-      <p class="t-body" style="text-align:center">Farewell breakfast served 10am–11.30am. Pack down tents and leave safely.</p>
-      <div style="display:flex;flex-direction:column;gap:var(--s3);width:100%">
-        <div class="info-card" style="flex-direction:row;align-items:center;gap:var(--s4);padding-block:var(--s4)">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;min-width:160px;white-space:nowrap">AM</div>
-          <div style="display:flex;flex-direction:column;gap:4px">
-            <span class="t-body-strong">Slow Start</span>
-            <span class="t-body" style="font-size:14px">Crawl out of whatever you crawled into. Coffee on.</span>
-          </div>
-        </div>
-        <div class="info-card" style="flex-direction:row;align-items:center;gap:var(--s4);padding-block:var(--s4)">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;min-width:160px;white-space:nowrap">10–11:30</div>
-          <div style="display:flex;flex-direction:column;gap:4px">
-            <span class="t-body-strong">Farewell Breakfast</span>
-            <span class="t-body" style="font-size:14px">Farm-fresh breakfast before everyone heads off.</span>
-          </div>
-        </div>
-        <div class="info-card" style="flex-direction:row;align-items:center;gap:var(--s4);padding-block:var(--s4)">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--orange);line-height:1;flex-shrink:0;min-width:160px;white-space:nowrap">Midday</div>
-          <div style="display:flex;flex-direction:column;gap:4px">
-            <span class="t-body-strong">Pack Down + Fuck Off</span>
-            <span class="t-body" style="font-size:14px">Take everything you brought. Leave only footprints. Drive safely. See you in 40 years.</span>
-          </div>
-        </div>
-      </div>
-      <a href="https://buytickets.at/bigphat40th" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:var(--s4)">Don't miss it, get your ticket</a>
     </div>
   </div>
 </section>

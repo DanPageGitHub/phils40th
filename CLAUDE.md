@@ -6,6 +6,8 @@ Single-file static event website for Phil's Big Phat 40th Birthday, 2nd–4th Oc
 
 Live URL: https://phils40th.co.uk
 
+`AGENTS.md` is intentionally minimal for Codex-specific notes only. Keep project rules and the source of truth in this file to avoid duplication drifting out of date.
+
 ---
 
 ## Hosting & deployment
@@ -121,7 +123,7 @@ GitHub Pages will rebuild and the live site will update within a minute or two.
 - If a change requires new copy, propose the exact wording and wait for
   sign-off before editing index.html.
 - Writing style rules (apply everywhere):
-  - No em dashes. Use commas, colons, or a new sentence.
+  - No em dashes (—) anywhere in user-facing copy, ever. Use commas, colons, or a new sentence instead. Do not change any wording without confirming with the user first.
   - No full stops at the end of bullet points.
   - British English throughout.
   - Exclamation marks are fine on this site, use when appropriate.
