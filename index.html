@@ -181,7 +181,13 @@
     #hero{padding-bottom:calc(var(--s6) + 44px)}
     #about.sec.tight{padding-top:var(--s5)}
   }
-
+  /* Large desktop: raise vw caps so composition scales like it does at 1600px */
+  @media(min-width:2000px){
+    #hero{padding-top:20px}
+    .hero__title{font-size:clamp(220px,13vw,380px);margin-left:calc((var(--content-max) - 100vw) / 2 + 153px)}
+    .hero__top{min-height:clamp(760px,47vw,1140px)}
+    .hero__banner-img{height:100%;width:auto;max-width:none;transform:translateX(10.81vw)}
+  }
   /* PLAN */
   .plan-day{display:flex;flex-direction:column;gap:var(--s3);padding:var(--s5);border:2px solid rgba(255,90,0,.2);transition:border-color .2s}
   .plan-day:hover{border-color:var(--orange)}
